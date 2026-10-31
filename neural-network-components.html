@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A visual presentation by Neil Patel on neural network components: layers, neurons, weights, activation functions, loss functions, and optimization algorithms, with TensorFlow Playground experiments.">
+<meta name="theme-color" content="#143c35">
+<title>Inside a Neural Network | Neil Patel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap">
+<style>
+:root{--paper:#f8f7f2;--ink:#183a34;--muted:#596a62;--line:#d6ddd3;--green:#143c35;--green-2:#24574b;--accent:#d6e997;--soft:#eef2e4;--white:#fff;--blue:#0877bd;--orange:#f59322;--grey:#b8c2bb;--font:'DM Sans',system-ui,sans-serif;--display:'Manrope',system-ui,sans-serif;--u:1cqw}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#e9ebe3;color:var(--ink);font-family:var(--font);line-height:1.5}
+a{color:inherit;text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid #97620b;outline-offset:3px}
+h1,h2,h3,p,ul,ol{margin:0}
+.skip-link{position:absolute;left:16px;top:-100px;padding:10px 18px;background:var(--green);color:#fff;z-index:10}.skip-link:focus{top:12px}
+
+/* page chrome */
+.deck-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 32px;background:rgba(248,247,242,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);font-size:13px}
+.deck-bar .back{font-weight:700;text-decoration:none;white-space:nowrap}.deck-bar .back:hover{text-decoration:underline}
+.deck-bar .deck-title{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.deck-actions{display:flex;gap:10px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:4px;border:1px solid var(--green);background:var(--green);color:#fff;font:600 12px var(--font);text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--green-2)}
+.btn.ghost{background:transparent;color:var(--ink)}.btn.ghost:hover{background:var(--soft)}
+.deck{max-width:1180px;margin:0 auto;padding:28px 24px 60px;display:grid;gap:28px}
+.deck-hint{max-width:1180px;margin:0 auto;padding:22px 24px 0;font-size:13px;color:var(--muted)}
+
+/* slide frame */
+.slide{position:relative;container-type:inline-size;aspect-ratio:16/9;background:var(--paper);border-radius:6px;box-shadow:0 1px 0 var(--line),0 14px 30px #183a3414;overflow:hidden}
+.si{position:absolute;inset:0;padding:calc(var(--u)*3.6) calc(var(--u)*4.6) calc(var(--u)*3);display:flex;flex-direction:column;font-size:calc(var(--u)*1.42)}
+.s-top{display:flex;justify-content:space-between;align-items:center;font-size:calc(var(--u)*.92);font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:calc(var(--u)*1.3)}
+.s-top .num{color:var(--muted);letter-spacing:.08em}
+.kicker{display:inline-flex;align-items:center;gap:calc(var(--u)*.8)}
+.badge{display:inline-grid;place-items:center;width:calc(var(--u)*2.3);height:calc(var(--u)*2.3);border-radius:50%;background:var(--green);color:var(--accent);font:700 calc(var(--u)*.95) var(--display);letter-spacing:0}
+.s-title{font-family:var(--display);font-weight:600;font-size:calc(var(--u)*3.3);line-height:1.12;letter-spacing:-.045em;max-width:88%}
+.s-sub{color:var(--muted);font-size:calc(var(--u)*1.5);margin-top:calc(var(--u)*.8);max-width:80%}
+.s-body{flex:1;min-height:0;margin-top:calc(var(--u)*2);display:grid;gap:calc(var(--u)*3)}
+.cols-2{grid-template-columns:1fr 1fr}.cols-55{grid-template-columns:1.15fr .85fr}.cols-46{grid-template-columns:.9fr 1.1fr}
+.muted{color:var(--muted)}
+.small{font-size:calc(var(--u)*1.12)}
+.xs{font-size:calc(var(--u)*.98)}
+.s-body h3{font-family:var(--display);font-size:calc(var(--u)*1.6);letter-spacing:-.03em;line-height:1.2;margin-bottom:calc(var(--u)*.5)}
+.card{background:var(--white);border:1px solid var(--line);border-radius:calc(var(--u)*.5);padding:calc(var(--u)*1.5) calc(var(--u)*1.7)}
+.card p{color:var(--muted);font-size:calc(var(--u)*1.2)}
+.tag{display:inline-block;font-size:calc(var(--u)*.85);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#435e4d;background:#eaf0df;padding:calc(var(--u)*.25) calc(var(--u)*.7);border-radius:3px;margin-bottom:calc(var(--u)*.7)}
+.observed{margin-top:auto;display:flex;gap:calc(var(--u)*1.2);align-items:flex-start;background:var(--soft);border-left:calc(var(--u)*.3) solid #7f9a60;padding:calc(var(--u)*1.1) calc(var(--u)*1.5);font-size:calc(var(--u)*1.18);border-radius:0 4px 4px 0}
+.observed strong{font-family:var(--display);white-space:nowrap}
+.stack{display:flex;flex-direction:column;gap:calc(var(--u)*1.2);min-height:0}
+.steps{list-style:none;padding:0;display:grid;gap:calc(var(--u)*1)}
+.steps li{display:grid;grid-template-columns:calc(var(--u)*2.6) 1fr;gap:calc(var(--u)*1);align-items:start}
+.steps li>span{display:grid;place-items:center;width:calc(var(--u)*2.3);height:calc(var(--u)*2.3);border-radius:50%;border:1px solid var(--green);font:700 calc(var(--u)*1) var(--display)}
+.mono{font-family:Consolas,'Cascadia Mono',Menlo,monospace;font-size:.95em}
+.formula{font-family:'Times New Roman',Times,serif;font-style:italic;font-size:calc(var(--u)*1.9);text-align:center;background:var(--white);border:1px solid var(--line);border-radius:calc(var(--u)*.5);padding:calc(var(--u)*1)}
+svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{font-family:var(--font)}
+.fig{min-height:0;display:flex;flex-direction:column;justify-content:center}
+.legend{display:flex;flex-wrap:wrap;gap:calc(var(--u)*1.6);font-size:calc(var(--u)*1.02);color:var(--muted)}
+.legend i{display:inline-block;width:calc(var(--u)*2.2);height:calc(var(--u)*.35);vertical-align:middle;margin-right:calc(var(--u)*.5);border-radius:2px}
+
+/* title slide */
+.title-slide .si{background:var(--green);color:#fff;padding:calc(var(--u)*5) calc(var(--u)*5.5)}
+.title-slide .s-top{color:var(--accent)}
+.title-slide .s-top .num{color:#b9cbc3}
+.title-grid{flex:1;display:grid;grid-template-columns:1.25fr .75fr;gap:calc(var(--u)*4);align-items:center}
+.title-slide h1{font-family:var(--display);font-weight:600;font-size:calc(var(--u)*6.2);line-height:1.02;letter-spacing:-.06em}
+.title-slide h1 em{font-family:Georgia,serif;font-weight:400;color:var(--accent)}
+.title-slide .lede{font-size:calc(var(--u)*1.75);color:#d1ded7;margin-top:calc(var(--u)*2);max-width:92%}
+.title-meta{margin-top:calc(var(--u)*3.2);font-size:calc(var(--u)*1.1);color:#b9cbc3;border-top:1px solid #527267;padding-top:calc(var(--u)*1.4);display:flex;flex-wrap:wrap;gap:calc(var(--u)*.5) calc(var(--u)*2.2)}
+.title-meta strong{color:#fff}
+.toc{list-style:none;padding:0;border-top:1px solid #527267}
+.toc li{display:flex;align-items:center;gap:calc(var(--u)*1.2);padding:calc(var(--u)*1.05) 0;border-bottom:1px solid #527267;font-family:var(--display);font-size:calc(var(--u)*1.75);letter-spacing:-.03em}
+.toc li span{font:700 calc(var(--u)*.95) var(--font);color:var(--accent);letter-spacing:.1em;width:calc(var(--u)*2.6)}
+
+/* architecture */
+.arch-wrap{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*1.2)}
+.chips{display:flex;flex-wrap:wrap;gap:calc(var(--u)*.8)}
+.chip{display:inline-flex;align-items:center;gap:calc(var(--u)*.6);background:var(--white);border:1px solid var(--line);border-radius:999px;padding:calc(var(--u)*.35) calc(var(--u)*1.1) calc(var(--u)*.35) calc(var(--u)*.4);font-size:calc(var(--u)*1.05);font-weight:600}
+.chip .badge{width:calc(var(--u)*1.9);height:calc(var(--u)*1.9);font-size:calc(var(--u)*.85)}
+
+/* layer cards with images */
+.layer-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--u)*1.2)}
+.layer-cards .card{padding:calc(var(--u)*1.3) calc(var(--u)*1.4)}
+.layer-cards h3 small{display:block;font:700 calc(var(--u)*.85) var(--font);letter-spacing:.12em;text-transform:uppercase;color:#668345;margin-bottom:calc(var(--u)*.3)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*1.2)}
+.compare figure,.exp-grid figure{margin:0}
+.compare img,.exp-grid img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:calc(var(--u)*.4);border:1px solid var(--line)}
+figcaption{font-size:calc(var(--u)*1);color:var(--muted);margin-top:calc(var(--u)*.5);line-height:1.35}
+figcaption b{color:var(--ink);font-weight:700}
+.loss-pill{display:inline-block;font:700 calc(var(--u)*.95) var(--display);padding:calc(var(--u)*.1) calc(var(--u)*.6);border-radius:3px;background:#f6e3c6;color:#7a4a08}
+.loss-pill.good{background:#dcebd0;color:#2f5a1c}
+
+/* weights */
+.wrow{display:grid;grid-template-columns:calc(var(--u)*15) 1fr;gap:calc(var(--u)*1.4);align-items:center;padding:calc(var(--u)*1.1) 0;border-bottom:1px solid var(--line)}
+.wrow:last-child{border-bottom:0}
+.wrow b{font-family:var(--display);font-size:calc(var(--u)*1.3)}
+.wrow p{font-size:calc(var(--u)*1.15);color:var(--muted)}
+.count{background:var(--white);border:1px solid var(--line);border-radius:calc(var(--u)*.5);padding:calc(var(--u)*1.2) calc(var(--u)*1.5)}
+.count .eq{font-family:var(--display);font-size:calc(var(--u)*1.35);margin:calc(var(--u)*.3) 0}
+
+/* activation */
+.act-grid{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*1)}
+.act{background:var(--white);border:1px solid var(--line);border-radius:calc(var(--u)*.5);padding:calc(var(--u)*.9) calc(var(--u)*1.1) calc(var(--u)*.6)}
+.act-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.act-head b{font-family:var(--display);font-size:calc(var(--u)*1.3)}
+.act-head span{font-size:calc(var(--u)*.95);color:var(--muted)}
+.act .f{font-family:'Times New Roman',Times,serif;font-style:italic;font-size:calc(var(--u)*1.05);color:var(--muted)}
+.bars{display:grid;gap:calc(var(--u)*.9);margin-top:calc(var(--u)*.6)}
+.bar{display:grid;grid-template-columns:calc(var(--u)*7) 1fr calc(var(--u)*4.5);gap:calc(var(--u)*.9);align-items:center;font-size:calc(var(--u)*1.12)}
+.bar .track{height:calc(var(--u)*1.7);background:#e6e9dd;border-radius:3px;overflow:hidden}
+.bar .fill{height:100%;background:var(--green);border-radius:3px}
+.bar .fill.bad{background:#c98a3a}
+.bar .val{font-family:var(--display);font-weight:700;text-align:right}
+
+/* loss / optimizer */
+.mini-plots{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*1)}
+.plot-card{background:var(--white);border:1px solid var(--line);border-radius:calc(var(--u)*.5);padding:calc(var(--u)*.9) calc(var(--u)*1.1)}
+.plot-card b{font-family:var(--display);font-size:calc(var(--u)*1.2)}
+.plot-card .xs{color:var(--muted)}
+.def-list{display:grid;gap:calc(var(--u)*1)}
+.def-list>div{border-top:1px solid var(--line);padding-top:calc(var(--u)*.9)}
+.def-list b{font-family:var(--display);font-size:calc(var(--u)*1.35)}
+.def-list p{font-size:calc(var(--u)*1.15);color:var(--muted)}
+.opt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--u)*1)}
+.lr-table{width:100%;border-collapse:collapse;font-size:calc(var(--u)*1.12)}
+.lr-table th,.lr-table td{text-align:left;padding:calc(var(--u)*.55) calc(var(--u)*.7);border-bottom:1px solid var(--line)}
+.lr-table th{font-size:calc(var(--u)*.85);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.lr-table td:nth-child(2){font-family:var(--display);font-weight:700}
+
+/* cheat sheet */
+.sheet{width:100%;border-collapse:collapse;font-size:calc(var(--u)*1.15);background:var(--white);border:1px solid var(--line)}
+.sheet th,.sheet td{text-align:left;padding:calc(var(--u)*.75) calc(var(--u)*1);border-bottom:1px solid var(--line);vertical-align:top}
+.sheet thead th{background:var(--green);color:#fff;font-size:calc(var(--u)*.88);letter-spacing:.08em;text-transform:uppercase}
+.sheet tbody th{font-family:var(--display);white-space:nowrap}
+.sheet tbody th .badge{width:calc(var(--u)*1.8);height:calc(var(--u)*1.8);font-size:calc(var(--u)*.8);margin-right:calc(var(--u)*.6);vertical-align:middle}
+.sheet td{color:var(--muted)}
+.learned{display:inline-block;font-weight:700;font-size:calc(var(--u)*.9);padding:calc(var(--u)*.1) calc(var(--u)*.6);border-radius:3px;background:#dcebd0;color:#2f5a1c}
+.chosen{display:inline-block;font-weight:700;font-size:calc(var(--u)*.9);padding:calc(var(--u)*.1) calc(var(--u)*.6);border-radius:3px;background:#e7e9f4;color:#33407a}
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*1.4);margin-top:calc(var(--u)*1.6)}
+.roles .card{padding:calc(var(--u)*1.1) calc(var(--u)*1.5)}
+.roles h3{margin-top:calc(var(--u)*.5)}
+.loop{display:flex;align-items:center;gap:calc(var(--u)*.7);flex-wrap:wrap;margin-top:calc(var(--u)*1.1);font-size:calc(var(--u)*1.08)}
+.loop span{background:var(--green);color:#fff;border-radius:999px;padding:calc(var(--u)*.35) calc(var(--u)*1.1);font-weight:600}
+.loop i{font-style:normal;color:var(--muted)}
+
+/* experiments */
+.exp-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:calc(var(--u)*1.2)}
+.exp-grid figcaption{font-size:calc(var(--u)*.98)}
+.exp-grid .lbl{display:inline-grid;place-items:center;width:calc(var(--u)*1.8);height:calc(var(--u)*1.8);border-radius:50%;background:var(--green);color:var(--accent);font:700 calc(var(--u)*.85) var(--display);margin-right:calc(var(--u)*.4)}
+.exp-notes{display:grid;grid-template-columns:1.3fr 1fr;gap:calc(var(--u)*2.4);margin-top:calc(var(--u)*1.4);font-size:calc(var(--u)*1.05);color:var(--muted)}
+.exp-notes b{color:var(--ink)}
+
+/* summary */
+.summary .si{background:var(--green);color:#fff}
+.summary .s-top{color:var(--accent)}.summary .s-top .num{color:#b9cbc3}
+.summary .s-title{color:#fff}
+.summary h3{color:var(--accent);font-family:var(--display);font-size:calc(var(--u)*1.05);letter-spacing:.14em;text-transform:uppercase;margin-bottom:calc(var(--u)*1)}
+.why{list-style:none;padding:0;display:grid;gap:calc(var(--u)*1.3)}
+.why li{border-top:1px solid #527267;padding-top:calc(var(--u)*1.1);font-size:calc(var(--u)*1.25);color:#d1ded7}
+.why li b{color:#fff;display:block;font-family:var(--display);font-size:calc(var(--u)*1.45);margin-bottom:calc(var(--u)*.2)}
+.insights{list-style:none;padding:0;counter-reset:ins;display:grid;gap:calc(var(--u)*1)}
+.insights li{counter-increment:ins;display:grid;grid-template-columns:calc(var(--u)*2.8) 1fr;gap:calc(var(--u)*.9);background:#1d4a41;border-radius:calc(var(--u)*.45);padding:calc(var(--u)*1.05) calc(var(--u)*1.2);font-size:calc(var(--u)*1.22);color:#d1ded7}
+.insights li::before{content:counter(ins,decimal-leading-zero);font:700 calc(var(--u)*1.1) var(--display);color:var(--accent)}
+.insights b{color:#fff}
+
+/* references */
+.refs{columns:2;column-gap:calc(var(--u)*4);padding-left:calc(var(--u)*1.8);font-size:calc(var(--u)*1.25);color:var(--muted)}
+.refs li{break-inside:avoid;margin-bottom:calc(var(--u)*1.4);padding-left:calc(var(--u)*.3);overflow-wrap:anywhere}
+.refs a{color:var(--ink)}
+
+/* present mode */
+.present-ui{display:none}
+body.presenting{background:#0d211d;overflow:hidden}
+body.presenting .deck-bar,body.presenting .deck-hint,body.presenting .skip-link{display:none}
+body.presenting .deck{max-width:none;padding:0;display:block}
+body.presenting .slide{display:none;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(100vw,177.78vh);border-radius:0;box-shadow:none}
+body.presenting .slide.current{display:block}
+body.presenting .present-ui{display:flex;position:fixed;right:16px;bottom:14px;z-index:20;gap:8px;align-items:center;font:600 12px var(--font);color:#b9cbc3}
+.present-ui button{background:#1d4a41;color:#fff;border:0;border-radius:4px;padding:7px 11px;font:600 12px var(--font);cursor:pointer}
+body.capture .present-ui{display:none}
+
+/* small screens: let slides grow taller so the text stays readable */
+@media (max-width:760px){
+  :root{--u:9px}
+  .deck-bar{padding:12px 16px}.deck-bar .deck-title{display:none}
+  .deck{padding:18px 16px 40px;gap:18px}.deck-hint{padding:18px 16px 0}
+  .slide{aspect-ratio:auto}
+  .si{position:relative;inset:auto;padding:22px 18px}
+  .s-title,.s-sub{max-width:none}
+  .s-title{font-size:26px}
+  .cols-2,.cols-55,.cols-46,.title-grid,.exp-notes{grid-template-columns:1fr}
+  .layer-cards{grid-template-columns:1fr}
+  .exp-grid{grid-template-columns:repeat(2,1fr)}
+  .opt-grid,.roles{grid-template-columns:1fr}
+  .act-grid,.mini-plots{grid-template-columns:1fr 1fr}
+  .wrow{grid-template-columns:1fr}.wrow svg{max-width:200px}
+  .lr-table{font-size:12px}.lr-table th,.lr-table td{padding:6px 4px}
+  .title-slide .si{padding:28px 20px}
+  .title-slide h1{font-size:44px}
+  .refs{columns:1}
+  .sheet{display:block;overflow-x:auto}
+  .observed{margin-top:16px}
+}
+
+/* print / PDF: one slide per landscape page */
+@page{size:13.333in 7.5in;margin:0}
+@media print{
+  body{background:#fff}
+  .deck-bar,.deck-hint,.present-ui,.skip-link{display:none!important}
+  .deck{max-width:none;padding:0;display:block}
+  .slide{width:13.333in;height:7.5in;aspect-ratio:auto;border-radius:0;box-shadow:none;break-after:page;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .slide:last-child{break-after:auto;page-break-after:auto}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#deck">Skip to slides</a>
+<header class="deck-bar">
+  <a class="back" href="index.html#nn-artifact">← Back to portfolio</a>
+  <span class="deck-title">Inside a Neural Network · Visual presentation · Neil Patel</span>
+  <div class="deck-actions">
+    <button class="btn ghost" type="button" id="present-btn">Present ▶</button>
+    <a class="btn" href="Neural-Network-Components.pdf" download>PDF ↓</a>
+  </div>
+</header>
+<p class="deck-hint">12 slides. Scroll to read, or select <strong>Present</strong> for full-screen slides (arrow keys to move, Esc to exit).</p>
+
+<main class="deck" id="deck">
+
+<!-- 1 · Title -->
+<section class="slide title-slide" id="s1" aria-label="Slide 1: Title">
+  <div class="si">
+    <div class="s-top"><span>Visual presentation · Portfolio artifact 02</span><span class="num">01 / 12</span></div>
+    <div class="title-grid">
+      <div>
+        <h1>Inside a <em>neural</em><br>network</h1>
+        <p class="lede">Six components, one learning loop, and what changed when I adjusted them in TensorFlow Playground.</p>
+        <div class="title-meta"><span><strong>Neil Patel</strong></span><span>AIML-501 Model Development</span><span>Indiana Wesleyan University</span><span>October 2026</span></div>
+      </div>
+      <ol class="toc" aria-label="Components covered">
+        <li><span>01</span>Layers</li>
+        <li><span>02</span>Neurons</li>
+        <li><span>03</span>Weights &amp; biases</li>
+        <li><span>04</span>Activation functions</li>
+        <li><span>05</span>Loss functions</li>
+        <li><span>06</span>Optimization algorithms</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · Architecture -->
+<section class="slide" id="s2" aria-label="Slide 2: Architecture and data flow">
+  <div class="si">
+    <div class="s-top"><span>The big picture</span><span class="num">02 / 12</span></div>
+    <h2 class="s-title">How data flows through a neural network</h2>
+    <p class="s-sub">Predictions move forward through the layers; the error moves backward to adjust every weight.</p>
+    <div class="arch-wrap">
+      <svg id="arch" viewBox="0 0 1120 440" role="img" aria-labelledby="arch-t arch-d">
+        <title id="arch-t">Neural network architecture and training flow</title>
+        <desc id="arch-d">Two input features feed two hidden layers of four neurons each, then one output neuron that produces a prediction. The loss function compares the prediction with the true label. A dashed backward path carries the error to the optimizer, which updates the weights on every connection.</desc>
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#183a34"/></marker>
+          <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#97620b"/></marker>
+        </defs>
+        <!-- forward arrow -->
+        <line x1="110" y1="22" x2="985" y2="22" stroke="#183a34" stroke-width="2" marker-end="url(#ah)"/>
+        <text x="548" y="14" text-anchor="middle" font-size="15" font-weight="700" fill="#183a34" letter-spacing="1.5">FORWARD PASS · FEATURES → PREDICTION → ERROR</text>
+        <!-- layer labels -->
+        <g font-size="14" font-weight="700" fill="#596a62" text-anchor="middle" letter-spacing="1.2">
+          <text x="110" y="62">INPUT LAYER</text><text x="350" y="62">HIDDEN LAYER 1</text><text x="590" y="62">HIDDEN LAYER 2</text><text x="800" y="62">OUTPUT LAYER</text><text x="985" y="62">LOSS</text>
+        </g>
+        <g id="arch-links"></g>
+        <g id="arch-nodes"></g>
+        <!-- output -> loss -->
+        <line x1="828" y1="225" x2="893" y2="225" stroke="#183a34" stroke-width="2" marker-end="url(#ah)"/>
+        <text x="860" y="214" text-anchor="middle" font-size="15" font-style="italic" font-family="Georgia,serif" fill="#183a34">ŷ</text>
+        <rect x="895" y="185" width="180" height="80" rx="8" fill="#fff" stroke="#183a34" stroke-width="2"/>
+        <text x="985" y="218" text-anchor="middle" font-size="18" font-weight="700" fill="#183a34">Loss  L(ŷ, y)</text>
+        <text x="985" y="244" text-anchor="middle" font-size="13" fill="#596a62">how wrong is ŷ?</text>
+        <text x="985" y="112" text-anchor="middle" font-size="14" fill="#596a62">true label <tspan font-style="italic" font-family="Georgia,serif" font-size="16" fill="#183a34">y</tspan></text>
+        <line x1="985" y1="120" x2="985" y2="181" stroke="#183a34" stroke-width="2" marker-end="url(#ah)"/>
+        <!-- backward path -->
+        <path d="M985 267 V400 H838" fill="none" stroke="#97620b" stroke-width="2.4" stroke-dasharray="7 6" marker-end="url(#ah2)"/>
+        <rect x="150" y="372" width="686" height="56" rx="8" fill="#fbf3e2" stroke="#97620b" stroke-width="2"/>
+        <text x="493" y="397" text-anchor="middle" font-size="16" font-weight="700" fill="#6b4507">Optimizer updates every weight and bias</text>
+        <text x="493" y="418" text-anchor="middle" font-size="14" fill="#6b4507"><tspan font-family="Georgia,serif" font-style="italic">w ← w − η · ∂L/∂w</tspan>   (gradients from backpropagation)</text>
+        <g stroke="#97620b" stroke-width="2.2" stroke-dasharray="5 5" marker-end="url(#ah2)">
+          <line x1="235" y1="370" x2="235" y2="322"/><line x1="470" y1="370" x2="470" y2="352"/><line x1="690" y1="370" x2="690" y2="352"/>
+        </g>
+        <text x="1060" y="345" text-anchor="end" font-size="13" font-weight="700" fill="#97620b" letter-spacing="1">BACKWARD PASS</text>
+        <!-- component badges -->
+        <g id="arch-badges" font-family="Manrope,sans-serif" font-weight="800" font-size="13" text-anchor="middle"></g>
+      </svg>
+      <div class="chips" aria-label="Component key">
+        <span class="chip"><span class="badge">1</span>Layers</span>
+        <span class="chip"><span class="badge">2</span>Neurons</span>
+        <span class="chip"><span class="badge">3</span>Weights &amp; biases</span>
+        <span class="chip"><span class="badge">4</span>Activation functions</span>
+        <span class="chip"><span class="badge">5</span>Loss function</span>
+        <span class="chip"><span class="badge">6</span>Optimizer</span>
+        <span class="legend" style="margin-left:auto;align-self:center"><span><i style="background:var(--blue)"></i>positive weight</span><span><i style="background:var(--orange)"></i>negative weight</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · Layers -->
+<section class="slide" id="s3" aria-label="Slide 3: Layers">
+  <div class="si">
+    <div class="s-top"><span class="kicker"><span class="badge">1</span>Layers</span><span class="num">03 / 12</span></div>
+    <h2 class="s-title">Layers organize the computation into stages</h2>
+    <div class="s-body cols-55">
+      <div class="stack">
+        <div class="layer-cards">
+          <div class="card"><h3><small>First</small>Input layer</h3><p>Receives the raw features, one node per feature. It has no weights of its own.</p></div>
+          <div class="card"><h3><small>Middle</small>Hidden layers</h3><p>Transform the data step by step: early layers find simple patterns, later ones combine them.</p></div>
+          <div class="card"><h3><small>Last</small>Output layer</h3><p>Produces the answer: one value for regression or yes/no, one score per class.</p></div>
+        </div>
+        <svg viewBox="0 0 640 150" style="max-height:calc(var(--u)*10.5)" role="img" aria-label="Schematic of a network with 2 inputs, two hidden layers of 4 neurons, and 1 output. Depth counts the hidden layers; width counts the neurons in one layer.">
+          <path d="M210 24 V18 H410 V24" stroke="#183a34" stroke-width="1.5" fill="none"/>
+          <text x="310" y="10" text-anchor="middle" font-size="15" font-weight="700" fill="#183a34">depth = 2 hidden layers</text>
+          <rect x="374" y="27" width="32" height="98" rx="16" fill="none" stroke="#183a34" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <g id="depth-net"></g>
+          <g font-size="14" fill="#596a62" text-anchor="middle"><text x="70" y="146">input</text><text x="230" y="146">hidden</text><text x="390" y="146" font-weight="700" fill="#183a34">width = 4 neurons</text><text x="550" y="146">output</text></g>
+        </svg>
+        <p class="small muted">More depth allows more complex boundaries but adds parameters, training time, and overfitting risk. The right depth depends on the pattern.</p>
+        <div class="observed"><strong>Observed</strong><span>On the circle dataset, a network with <b>no hidden layer</b> stayed at a test loss of <b>0.50</b>, no better than guessing. Adding <b>one hidden layer of four neurons</b> brought it to <b>0.02</b>.</span></div>
+      </div>
+      <div class="fig">
+        <div class="compare">
+          <figure><img src="neural-network-assets/pg-circle-no-hidden.jpg" alt="Circle dataset: blue points inside a ring of orange points. With no hidden layer the background is an almost uniform pale wash, so the network has not separated the classes."><figcaption><b>No hidden layer</b><br>Only a straight-line boundary is possible. <span class="loss-pill">test 0.50</span></figcaption></figure>
+          <figure><img src="neural-network-assets/pg-circle-4-hidden.jpg" alt="Circle dataset with one hidden layer of four neurons: a blue rounded region now surrounds the inner blue points, with orange outside, separating the classes."><figcaption><b>1 hidden layer · 4 neurons</b><br>The boundary closes around the ring. <span class="loss-pill good">test 0.02</span></figcaption></figure>
+        </div>
+        <p class="xs muted" style="margin-top:calc(var(--u)*.8)">TensorFlow Playground decision boundaries after 300 epochs. Points are training data; background color is the network’s prediction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · Neurons -->
+<section class="slide" id="s4" aria-label="Slide 4: Neurons">
+  <div class="si">
+    <div class="s-top"><span class="kicker"><span class="badge">2</span>Neurons</span><span class="num">04 / 12</span></div>
+    <h2 class="s-title">A neuron is a weighted vote followed by a decision rule</h2>
+    <div class="s-body cols-55">
+      <div class="fig">
+        <svg viewBox="0 0 600 330" role="img" aria-labelledby="neu-t neu-d">
+          <title id="neu-t">Anatomy of a single neuron</title>
+          <desc id="neu-d">Three inputs x1, x2 and x3 are each multiplied by a weight w1, w2 and w3. The products and a bias b are summed into z, which passes through an activation function f to produce the output a.</desc>
+          <defs><marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#183a34"/></marker></defs>
+          <g stroke-width="3.5" fill="none">
+            <line x1="66" y1="80" x2="262" y2="160" stroke="#0877bd"/>
+            <line x1="66" y1="170" x2="258" y2="172" stroke="#f59322"/>
+            <line x1="66" y1="260" x2="262" y2="186" stroke="#0877bd" stroke-width="1.6"/>
+          </g>
+          <g font-family="Georgia,serif" font-style="italic" font-size="20" fill="#183a34">
+            <circle cx="44" cy="80" r="24" fill="#fff" stroke="#183a34" stroke-width="2"/><text x="44" y="87" text-anchor="middle">x₁</text>
+            <circle cx="44" cy="170" r="24" fill="#fff" stroke="#183a34" stroke-width="2"/><text x="44" y="177" text-anchor="middle">x₂</text>
+            <circle cx="44" cy="260" r="24" fill="#fff" stroke="#183a34" stroke-width="2"/><text x="44" y="267" text-anchor="middle">x₃</text>
+            <text x="160" y="106" fill="#0877bd">w₁</text><text x="160" y="160" fill="#c46a0c">w₂</text><text x="160" y="246" fill="#0877bd">w₃</text>
+          </g>
+          <circle cx="300" cy="172" r="44" fill="#143c35"/>
+          <text x="300" y="186" text-anchor="middle" font-size="40" fill="#d6e997" font-family="Georgia,serif">Σ</text>
+          <line x1="300" y1="64" x2="300" y2="124" stroke="#183a34" stroke-width="2" marker-end="url(#ah3)"/>
+          <text x="300" y="54" text-anchor="middle" font-size="17" fill="#183a34">bias <tspan font-family="Georgia,serif" font-style="italic">b</tspan></text>
+          <line x1="346" y1="172" x2="392" y2="172" stroke="#183a34" stroke-width="2" marker-end="url(#ah3)"/>
+          <text x="368" y="160" text-anchor="middle" font-size="18" font-style="italic" font-family="Georgia,serif" fill="#183a34">z</text>
+          <rect x="396" y="128" width="96" height="88" rx="10" fill="#fff" stroke="#183a34" stroke-width="2"/>
+          <path id="neu-act" d="" fill="none" stroke="#143c35" stroke-width="3"/>
+          <text x="444" y="236" text-anchor="middle" font-size="15" fill="#596a62">f(z)</text>
+          <line x1="494" y1="172" x2="536" y2="172" stroke="#183a34" stroke-width="2" marker-end="url(#ah3)"/>
+          <circle cx="564" cy="172" r="26" fill="#d6e997" stroke="#143c35" stroke-width="2"/>
+          <text x="564" y="179" text-anchor="middle" font-size="20" font-style="italic" font-family="Georgia,serif" fill="#143c35">a</text>
+          <g font-size="13" font-weight="700" fill="#596a62" letter-spacing="1" text-anchor="middle">
+            <text x="44" y="314">INPUTS</text><text x="160" y="314">WEIGHTS</text><text x="300" y="314">WEIGHTED SUM</text><text x="444" y="314">ACTIVATION</text><text x="564" y="314">OUTPUT</text>
+          </g>
+        </svg>
+        <p class="formula" style="margin-top:calc(var(--u)*1)">z = w<sub>1</sub>x<sub>1</sub> + w<sub>2</sub>x<sub>2</sub> + w<sub>3</sub>x<sub>3</sub> + b<span style="display:inline-block;width:calc(var(--u)*4)"></span>a = f(z)</p>
+      </div>
+      <div class="stack">
+        <ol class="steps">
+          <li><span>1</span><div><b>Weigh</b> each input by its connection weight.</div></li>
+          <li><span>2</span><div><b>Sum</b> the results and add a <b>bias</b>, which shifts the point where the neuron “switches on.”</div></li>
+          <li><span>3</span><div><b>Activate:</b> pass the sum <i>z</i> through an activation function to get the output <i>a</i>, which feeds the next layer.</div></li>
+        </ol>
+        <p class="small muted">The number of neurons in a layer is its <b>width</b>. Each neuron can detect one pattern, so wider layers detect more patterns at once. In the Playground, each neuron’s thumbnail shows the region it responds to; the final boundary blends them.</p>
+        <div class="observed"><strong>Observed</strong><span>With only <b>two neurons</b>, the spiral dataset stayed at a test loss of <b>0.47</b> after 1,000 epochs. Two simple patterns cannot trace two interleaved arms.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · Weights -->
+<section class="slide" id="s5" aria-label="Slide 5: Weights and biases">
+  <div class="si">
+    <div class="s-top"><span class="kicker"><span class="badge">3</span>Weights &amp; biases</span><span class="num">05 / 12</span></div>
+    <h2 class="s-title">Weights and biases are what the network learns</h2>
+    <div class="s-body cols-46">
+      <div class="stack">
+        <div class="card" style="padding-top:calc(var(--u)*.6);padding-bottom:calc(var(--u)*.6)">
+          <div class="wrow"><svg viewBox="0 0 220 44" aria-hidden="true"><circle cx="18" cy="22" r="14" fill="#fff" stroke="#183a34" stroke-width="2"/><line x1="33" y1="22" x2="187" y2="22" stroke="#0877bd" stroke-width="9"/><circle cx="202" cy="22" r="14" fill="#fff" stroke="#183a34" stroke-width="2"/></svg><div><b>w = +2.1</b><p>Large positive: the input strongly pushes the neuron on.</p></div></div>
+          <div class="wrow"><svg viewBox="0 0 220 44" aria-hidden="true"><circle cx="18" cy="22" r="14" fill="#fff" stroke="#183a34" stroke-width="2"/><line x1="33" y1="22" x2="187" y2="22" stroke="#f59322" stroke-width="8"/><circle cx="202" cy="22" r="14" fill="#fff" stroke="#183a34" stroke-width="2"/></svg><div><b>w = −1.8</b><p>Large negative: the input suppresses the neuron.</p></div></div>
+          <div class="wrow"><svg viewBox="0 0 220 44" aria-hidden="true"><circle cx="18" cy="22" r="14" fill="#fff" stroke="#183a34" stroke-width="2"/><line x1="33" y1="22" x2="187" y2="22" stroke="#b8c2bb" stroke-width="1.5"/><circle cx="202" cy="22" r="14" fill="#fff" stroke="#183a34" stroke-width="2"/></svg><div><b>w ≈ 0.02</b><p>Near zero: the input is mostly ignored.</p></div></div>
+        </div>
+        <p class="xs muted">Line color and thickness follow the Playground convention: blue for positive, orange for negative, thicker for larger magnitude.</p>
+      </div>
+      <div class="stack">
+        <p>Every connection has a <b>weight</b> and every neuron has a <b>bias</b>. Together they are the model’s <b>parameters</b>. Training starts them at small random values and repeatedly nudges them to reduce the loss.</p>
+        <div class="count">
+          <span class="tag">Counting parameters</span>
+          <p class="eq">2 → 4 → 1:  (2×4 + 4) + (4×1 + 1) = <b>17</b></p>
+          <p class="eq">4 → 8 → 8 → 6 → 1:  40 + 72 + 54 + 7 = <b>173</b></p>
+          <p class="xs muted">Weights between layers plus one bias per neuron. The second network is the one that solved the spiral. Large language models have billions of parameters.</p>
+        </div>
+        <div class="observed"><strong>Observed</strong><span>Because starting weights are random, identical settings can finish differently. At a learning rate of 3, five runs ended anywhere from <b>0.03</b> to <b>0.18</b>, so I repeated most experiments 3–5 times.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · Activation -->
+<section class="slide" id="s6" aria-label="Slide 6: Activation functions">
+  <div class="si">
+    <div class="s-top"><span class="kicker"><span class="badge">4</span>Activation functions</span><span class="num">06 / 12</span></div>
+    <h2 class="s-title">Activation functions let the network bend its boundary</h2>
+    <div class="s-body cols-2">
+      <div class="act-grid">
+        <div class="act"><div class="act-head"><b>Linear</b><span>range (−∞, ∞)</span></div><svg viewBox="0 0 200 110" data-act="linear" aria-hidden="true"></svg><div class="f">f(z) = z</div></div>
+        <div class="act"><div class="act-head"><b>Sigmoid</b><span>range (0, 1)</span></div><svg viewBox="0 0 200 110" data-act="sigmoid" aria-hidden="true"></svg><div class="f">f(z) = 1 / (1 + e<sup>−z</sup>)</div></div>
+        <div class="act"><div class="act-head"><b>Tanh</b><span>range (−1, 1)</span></div><svg viewBox="0 0 200 110" data-act="tanh" aria-hidden="true"></svg><div class="f">f(z) = tanh(z)</div></div>
+        <div class="act"><div class="act-head"><b>ReLU</b><span>range [0, ∞)</span></div><svg viewBox="0 0 200 110" data-act="relu" aria-hidden="true"></svg><div class="f">f(z) = max(0, z)</div></div>
+      </div>
+      <div class="stack">
+        <p>An activation function decides how strongly a neuron responds to its weighted sum. A <b>nonlinear</b> function is what lets layers build curves; without one, any stack of layers collapses into a single straight-line model.</p>
+        <div class="card">
+          <span class="tag">Playground test · circle dataset</span>
+          <p class="xs" style="margin-bottom:calc(var(--u)*.4)">One hidden layer of four neurons, 300 epochs, median test loss of five runs (lower is better).</p>
+          <div class="bars" role="img" aria-label="Median test loss by activation: Linear 0.489, Sigmoid 0.054, Tanh 0.022, ReLU 0.009">
+            <div class="bar"><span>Linear</span><div class="track"><div class="fill bad" style="width:97.8%"></div></div><span class="val">0.489</span></div>
+            <div class="bar"><span>Sigmoid</span><div class="track"><div class="fill" style="width:10.8%"></div></div><span class="val">0.054</span></div>
+            <div class="bar"><span>Tanh</span><div class="track"><div class="fill" style="width:4.4%"></div></div><span class="val">0.022</span></div>
+            <div class="bar"><span>ReLU</span><div class="track"><div class="fill" style="width:1.8%"></div></div><span class="val">0.009</span></div>
+          </div>
+        </div>
+        <div class="observed"><strong>Observed</strong><span>Even two hidden layers with a <b>linear</b> activation scored <b>0.49</b>: no better than having no hidden layer at all.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · Loss -->
+<section class="slide" id="s7" aria-label="Slide 7: Loss functions">
+  <div class="si">
+    <div class="s-top"><span class="kicker"><span class="badge">5</span>Loss functions</span><span class="num">07 / 12</span></div>
+    <h2 class="s-title">Loss functions turn “how wrong?” into one number</h2>
+    <div class="s-body cols-2">
+      <div class="stack">
+        <div class="mini-plots">
+          <div class="plot-card"><b>Mean squared error</b><svg viewBox="0 0 220 130" data-loss="mse" aria-hidden="true"></svg><div class="xs">Loss vs. prediction ŷ when the true value is 1</div></div>
+          <div class="plot-card"><b>Cross-entropy</b><svg viewBox="0 0 220 130" data-loss="ce" aria-hidden="true"></svg><div class="xs">Loss vs. predicted probability of the true class</div></div>
+        </div>
+        <div class="def-list">
+          <div><b>Mean squared error (MSE)</b><p>Averages the squared gap between prediction and target. The usual choice for regression, such as prices or temperatures; large misses are penalized heavily.</p></div>
+          <div><b>Cross-entropy</b><p>The usual choice for classification. Loss rises steeply when the model is confident and wrong, which pushes it to fix its worst mistakes first.</p></div>
+        </div>
+      </div>
+      <div class="stack">
+        <p>The loss is the network’s score for each prediction, and the only signal the optimizer sees. Choosing it is part of defining the task.</p>
+        <div class="card">
+          <span class="tag">Training loss vs. test loss</span>
+          <p><b style="color:var(--ink)">Training loss</b> measures fit on data the model learned from. <b style="color:var(--ink)">Test loss</b> measures performance on data it has never seen. A large gap means the model is memorizing rather than generalizing.</p>
+        </div>
+        <p class="xs muted">The Playground reports a squared-error loss on labels of −1 and +1, so a loss near 0.50 means the output is stuck near zero: the network is guessing.</p>
+        <div class="observed"><strong>Observed</strong><span>Raising the spiral dataset’s noise to 40 (of a possible 50) left training loss low at <b>0.03</b> while test loss rose to <b>0.10</b>, a threefold gap caused by fitting the noise.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · Optimizers -->
+<section class="slide" id="s8" aria-label="Slide 8: Optimization algorithms">
+  <div class="si">
+    <div class="s-top"><span class="kicker"><span class="badge">6</span>Optimization algorithms</span><span class="num">08 / 12</span></div>
+    <h2 class="s-title">Optimizers decide how to change each weight</h2>
+    <div class="s-body cols-55">
+      <div class="stack">
+        <div class="opt-grid">
+          <div class="plot-card"><b>Too small</b><svg viewBox="0 0 200 120" data-gd="0.06" aria-hidden="true"></svg><div class="xs">Tiny steps; training stalls.</div></div>
+          <div class="plot-card"><b>About right</b><svg viewBox="0 0 200 120" data-gd="0.3" aria-hidden="true"></svg><div class="xs">Steady steps to the minimum.</div></div>
+          <div class="plot-card"><b>Too large</b><svg viewBox="0 0 200 120" data-gd="0.95" aria-hidden="true"></svg><div class="xs">Overshoots and bounces across.</div></div>
+        </div>
+        <div class="card" style="padding:calc(var(--u)*1) calc(var(--u)*1.3)">
+          <span class="tag">Playground test · learning rate</span>
+          <table class="lr-table">
+            <thead><tr><th>Learning rate</th><th>Median test loss</th><th>Range of 5 runs</th></tr></thead>
+            <tbody>
+              <tr><td>0.001</td><td>0.363</td><td>0.325–0.478 · too slow</td></tr>
+              <tr><td>0.03</td><td>0.023</td><td>0.021–0.026 · stable</td></tr>
+              <tr><td>3</td><td>0.102</td><td>0.025–0.182 · erratic</td></tr>
+            </tbody>
+          </table>
+          <p class="xs muted" style="margin-top:calc(var(--u)*.4)">Circle dataset, one hidden layer of four tanh neurons, 300 epochs.</p>
+        </div>
+      </div>
+      <div class="stack">
+        <p class="formula">w ← w − η · ∂L/∂w</p>
+        <p class="small"><b>Backpropagation</b> uses the chain rule to find each weight’s gradient: how much it contributed to the loss. The <b>optimizer</b> steps each weight downhill; the <b>learning rate η</b> sets the step size.</p>
+        <div class="def-list">
+          <div><b>Stochastic gradient descent (SGD)</b><p>Updates after each small batch of examples. The Playground uses mini-batch SGD.</p></div>
+          <div><b>Momentum</b><p>Keeps a running direction to smooth out noisy steps.</p></div>
+          <div><b>Adam</b><p>Adapts the step size for each parameter; a common default for deep networks.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · Cheat sheet -->
+<section class="slide" id="s9" aria-label="Slide 9: How the components fit together">
+  <div class="si">
+    <div class="s-top"><span>Putting it together</span><span class="num">09 / 12</span></div>
+    <h2 class="s-title">Six components, two roles: learned or chosen</h2>
+    <div class="s-body" style="align-content:start;gap:0">
+      <table class="sheet">
+        <thead><tr><th scope="col">Component</th><th scope="col">Job in the network</th><th scope="col">Learned or chosen?</th><th scope="col">Where to change it in the Playground</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><span class="badge">1</span>Layers</th><td>Define the stages data passes through</td><td><span class="chosen">Chosen</span> architecture</td><td>+ / − hidden layers</td></tr>
+          <tr><th scope="row"><span class="badge">2</span>Neurons</th><td>Detect patterns; set each layer’s width</td><td><span class="chosen">Chosen</span> architecture</td><td>+ / − neurons above each layer</td></tr>
+          <tr><th scope="row"><span class="badge">3</span>Weights &amp; biases</th><td>Scale and shift every signal</td><td><span class="learned">Learned</span> during training</td><td>Shown as line color and thickness; hover to read</td></tr>
+          <tr><th scope="row"><span class="badge">4</span>Activation</th><td>Add nonlinearity inside each neuron</td><td><span class="chosen">Chosen</span> per network</td><td>Activation menu</td></tr>
+          <tr><th scope="row"><span class="badge">5</span>Loss</th><td>Score each prediction against the truth</td><td><span class="chosen">Chosen</span> to fit the task</td><td>Problem type; training and test loss readout</td></tr>
+          <tr><th scope="row"><span class="badge">6</span>Optimizer</th><td>Turn gradients into weight updates</td><td><span class="chosen">Chosen</span> with its settings</td><td>Learning rate, batch size, regularization</td></tr>
+        </tbody>
+      </table>
+      <div class="loop" aria-label="Training loop"><b style="margin-right:calc(var(--u)*.4)">Each training step:</b><span>Forward pass</span><i>→</i><span>Compute loss</span><i>→</i><span>Backpropagate</span><i>→</i><span>Update weights</span><i>↺ repeat; one full pass over the data is an epoch</i></div>
+      <div class="roles">
+        <div class="card"><span class="learned">Learned</span><h3>Parameters</h3><p>Weights and biases. Training finds their values automatically by following the gradient of the loss.</p></div>
+        <div class="card"><span class="chosen">Chosen</span><h3>Design choices &amp; hyperparameters</h3><p>Layers, neurons, activation, loss, optimizer, learning rate, and batch size. People set these, then compare results on test data.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · Experiments -->
+<section class="slide" id="s10" aria-label="Slide 10: TensorFlow Playground experiments">
+  <div class="si">
+    <div class="s-top"><span>Evidence</span><span class="num">10 / 12</span></div>
+    <h2 class="s-title">What I observed in TensorFlow Playground</h2>
+    <div class="s-body" style="display:block">
+      <div class="exp-grid">
+        <figure><img src="neural-network-assets/pg-circle-no-hidden.jpg" alt="Circle dataset with no hidden layer: pale, nearly uniform background; the classes are not separated."><figcaption><span class="lbl">A</span><b>Circle · no hidden layer</b><br>A straight line cannot enclose a ring.<br><span class="loss-pill">test 0.50</span></figcaption></figure>
+        <figure><img src="neural-network-assets/pg-circle-4-hidden.jpg" alt="Circle dataset with four hidden tanh neurons: a closed blue region surrounds the inner class."><figcaption><span class="lbl">B</span><b>Circle · 4 tanh neurons</b><br>One hidden layer closes the boundary.<br><span class="loss-pill good">test 0.02</span></figcaption></figure>
+        <figure><img src="neural-network-assets/pg-spiral-2-neurons.jpg" alt="Spiral dataset with two hidden neurons: a soft diagonal gradient that ignores the spiral arms."><figcaption><span class="lbl">C</span><b>Spiral · 2 neurons</b><br>Too little capacity; the boundary ignores the arms.<br><span class="loss-pill">test 0.47</span></figcaption></figure>
+        <figure><img src="neural-network-assets/pg-spiral-deep.jpg" alt="Spiral dataset with three hidden layers and sine features: blue and orange regions wind along both spiral arms."><figcaption><span class="lbl">D</span><b>Spiral · 8-8-6 + sin(x)</b><br>Depth plus useful features trace both arms.<br><span class="loss-pill good">test ≤ 0.01</span></figcaption></figure>
+        <figure><img src="neural-network-assets/pg-spiral-noise40.jpg" alt="Noisy spiral dataset with the same deep network: the boundary twists around individual noisy points."><figcaption><span class="lbl">E</span><b>Same as D · noise 40</b><br>Boundary bends around noisy points.<br><span class="loss-pill">train 0.03 · test 0.10</span></figcaption></figure>
+      </div>
+      <div class="exp-notes">
+        <p><b>Settings.</b> Classification, seed 0.42, 50% train/test split, batch size 10, learning rate 0.03, tanh activation, no regularization unless noted. Circle runs: 300 epochs. Spiral runs: 1,000 epochs. Most values are medians of 3–5 runs; the images are one representative run. Orange and blue are the two classes; the background is the network’s prediction.</p>
+        <p><b>Depth vs. features.</b> The 8-8-6 network with only x₁ and x₂ fit its training data (loss ≤ 0.008), but test loss varied from 0.03 to 0.09 between runs. Adding sin(x₁) and sin(x₂) as inputs made it reliable (0.001–0.010). Better features can matter as much as a bigger network.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 · Summary -->
+<section class="slide summary" id="s11" aria-label="Slide 11: Summary">
+  <div class="si">
+    <div class="s-top"><span>Summary</span><span class="num">11 / 12</span></div>
+    <h2 class="s-title">Why visualizing a neural network matters</h2>
+    <div class="s-body cols-2" style="margin-top:calc(var(--u)*1.8)">
+      <div>
+        <h3>Why visualize</h3>
+        <ul class="why">
+          <li><b>It makes hidden computation visible.</b>Each neuron’s pattern and each weight’s sign and size can be inspected instead of imagined.</li>
+          <li><b>It turns settings into cause and effect.</b>Change one setting and watch the boundary and the loss respond.</li>
+          <li><b>It speeds up diagnosis.</b>A flat loss means too little capacity, a train/test gap means overfitting, and a jumpy loss means the learning rate is too high.</li>
+          <li><b>It helps explain models to others.</b>A picture of the boundary communicates what a table of weights cannot.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Key insights from this exercise</h3>
+        <ol class="insights">
+          <li><span><b>Nonlinearity is essential.</b> Linear networks scored about 0.49–0.50 however many layers they had.</span></li>
+          <li><span><b>Match capacity to the problem.</b> Two neurons could not fit a spiral; three layers plus useful features could.</span></li>
+          <li><span><b>Learning rate is the most sensitive dial.</b> Too small stalled; too large was erratic.</span></li>
+          <li><span><b>Judge models on test loss.</b> Noisy data produced a threefold gap between training and test loss.</span></li>
+          <li><span><b>Repeat experiments.</b> Random starting weights change results, so a single run can mislead.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 · References -->
+<section class="slide" id="s12" aria-label="Slide 12: Sources">
+  <div class="si">
+    <div class="s-top"><span>Appendix</span><span class="num">12 / 12</span></div>
+    <h2 class="s-title">Sources</h2>
+    <div class="s-body" style="display:block">
+      <ol class="refs">
+        <li>Smilkov, D., &amp; Carter, S. <i>A Neural Network Playground</i>. TensorFlow. <a href="https://playground.tensorflow.org/">playground.tensorflow.org</a>. All experiments in this presentation were run here.</li>
+        <li>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). <i>Deep learning</i>. MIT Press. <a href="https://www.deeplearningbook.org/">deeplearningbook.org</a>. Chapters 6 (feedforward networks) and 8 (optimization).</li>
+        <li>Google for Developers. <i>Machine Learning Crash Course: Neural networks</i>. <a href="https://developers.google.com/machine-learning/crash-course/neural-networks">developers.google.com/machine-learning/crash-course/neural-networks</a></li>
+        <li>Rumelhart, D. E., Hinton, G. E., &amp; Williams, R. J. (1986). Learning representations by back-propagating errors. <i>Nature, 323</i>, 533–536.</li>
+        <li>Nair, V., &amp; Hinton, G. E. (2010). Rectified linear units improve restricted Boltzmann machines. <i>Proceedings of ICML 2010</i>.</li>
+        <li>Kingma, D. P., &amp; Ba, J. (2015). Adam: A method for stochastic optimization. <a href="https://arxiv.org/abs/1412.6980">arXiv:1412.6980</a></li>
+        <li>PyTorch. <i>torch.nn: Loss functions</i>. <a href="https://docs.pytorch.org/docs/stable/nn.html#loss-functions">docs.pytorch.org/docs/stable/nn.html</a></li>
+      </ol>
+      <p class="xs muted" style="margin-top:calc(var(--u)*1.5)">Diagrams and charts were created for this presentation. Playground screenshots show the output panel only, re-rendered at higher resolution. Experiments run October 31, 2026.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="present-ui" aria-live="polite"><span id="present-count">1 / 12</span><button type="button" id="prev-btn" aria-label="Previous slide">←</button><button type="button" id="next-btn" aria-label="Next slide">→</button><button type="button" id="exit-btn">Exit</button></div>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+
+  // Architecture diagram: nodes, weighted links, and component badges
+  var layers=[{x:110,ys:[185,265],kind:'in',labels:['x₁','x₂']},{x:360,ys:[105,185,265,345],kind:'hid'},{x:580,ys:[105,185,265,345],kind:'hid'},{x:800,ys:[225],kind:'out',labels:['ŷ']}];
+  var w=[0.9,-0.4,1.6,-1.2,0.3,0.7,-1.7,0.5,-0.8,1.3,0.2,-0.6,1.1,-0.3,0.8,-1.4,0.4,1.8,-0.9,0.6,-0.2,1.0,-1.1,0.35,0.75,-1.5,1.2,-0.45];
+  var links=document.getElementById('arch-links'),nodes=document.getElementById('arch-nodes'),i=0;
+  if(links){
+    for(var l=0;l<layers.length-1;l++){var A=layers[l],B=layers[l+1];
+      A.ys.forEach(function(ya){B.ys.forEach(function(yb){var v=w[i++%w.length];
+        el('line',{x1:A.x+26,y1:ya,x2:B.x-26,y2:yb,stroke:v>0?'#0877bd':'#f59322','stroke-width':(0.8+Math.abs(v)*2.1).toFixed(2),'stroke-opacity':0.82},links);});});}
+    layers.forEach(function(L){L.ys.forEach(function(y,j){
+      if(L.kind==='hid'){el('circle',{cx:L.x,cy:y,r:26,fill:'#143c35'},nodes);
+        var d='';for(var t=0;t<=20;t++){var z=-3+t*0.3;d+=(t?'L':'M')+(L.x-14+t*1.4).toFixed(1)+' '+(y-Math.tanh(z)*11).toFixed(1);}el('path',{d:d,fill:'none',stroke:'#d6e997','stroke-width':2.4},nodes);}
+      else{el('circle',{cx:L.x,cy:y,r:26,fill:L.kind==='out'?'#d6e997':'#fff',stroke:'#143c35','stroke-width':2},nodes);
+        var tx=el('text',{x:L.x,y:y+7,'text-anchor':'middle','font-size':20,'font-style':'italic','font-family':'Georgia,serif',fill:'#143c35'},nodes);tx.textContent=L.labels[j];}
+    });});
+    var badges=document.getElementById('arch-badges');
+    [[1,470,57],[2,398,82],[3,470,105],[4,612,160],[5,1075,185],[6,150,372]].forEach(function(b){
+      el('circle',{cx:b[1],cy:b[2],r:13,fill:'#d6e997',stroke:'#143c35','stroke-width':2},badges);
+      var t=el('text',{x:b[1],y:b[2]+4.5,fill:'#143c35'},badges);t.textContent=b[0];});
+  }
+
+  // Depth/width schematic on the layers slide
+  var dn=document.getElementById('depth-net');
+  if(dn){var cols=[[70,[64,88],'#fff'],[230,[40,64,88,112],'#143c35'],[390,[40,64,88,112],'#143c35'],[550,[76],'#d6e997']];
+    for(var c=0;c<cols.length-1;c++){cols[c][1].forEach(function(ya){cols[c+1][1].forEach(function(yb){el('line',{x1:cols[c][0],y1:ya,x2:cols[c+1][0],y2:yb,stroke:'#c9d1c8','stroke-width':1.2},dn);});});}
+    cols.forEach(function(col){col[1].forEach(function(y){el('circle',{cx:col[0],cy:y,r:9,fill:col[2],stroke:'#143c35','stroke-width':1.8},dn);});});}
+
+  // Neuron activation glyph
+  var na=document.getElementById('neu-act');
+  if(na){var d='';for(var t=0;t<=40;t++){var z=-3+t*0.15;d+=(t?'L':'M')+(410+t*1.7).toFixed(1)+' '+(172-Math.tanh(z)*26).toFixed(1);}na.setAttribute('d',d);}
+
+  // Generic function plot
+  function plot(svg,fn,x0,x1,y0,y1,opt){opt=opt||{};var W=200,H=+svg.getAttribute('viewBox').split(' ')[3],p=8;
+    function X(x){return p+(x-x0)/(x1-x0)*(W-2*p);}function Y(y){return H-p-(y-y0)/(y1-y0)*(H-2*p);}
+    if(y0<0&&y1>0)el('line',{x1:p,y1:Y(0),x2:W-p,y2:Y(0),stroke:'#c9d1c8','stroke-width':1},svg);
+    if(x0<0&&x1>0)el('line',{x1:X(0),y1:p,x2:X(0),y2:H-p,stroke:'#c9d1c8','stroke-width':1},svg);
+    var d='',n=120;for(var k=0;k<=n;k++){var x=x0+(x1-x0)*k/n,y=fn(x);y=Math.max(y0,Math.min(y1,y));d+=(k?'L':'M')+X(x).toFixed(1)+' '+Y(y).toFixed(1);}
+    el('path',{d:d,fill:'none',stroke:opt.color||'#143c35','stroke-width':opt.w||3,'stroke-linecap':'round'},svg);
+    return {X:X,Y:Y};}
+
+  var acts={linear:[function(z){return z/4;},-1.15,1.15],sigmoid:[function(z){return 1/(1+Math.exp(-z));},-0.2,1.15],tanh:[Math.tanh,-1.2,1.2],relu:[function(z){return Math.max(0,z);},-0.5,4.2]};
+  document.querySelectorAll('svg[data-act]').forEach(function(s){var a=acts[s.dataset.act];plot(s,a[0],-4,4,a[1],a[2]);});
+
+  document.querySelectorAll('svg[data-loss]').forEach(function(s){
+    if(s.dataset.loss==='mse'){var m=plot(s,function(x){return (x-1)*(x-1);},-1,3,-0.2,4.2,{color:'#0877bd'});
+      el('circle',{cx:m.X(1),cy:m.Y(0),r:4.5,fill:'#143c35'},s);var t=el('text',{x:m.X(1),y:m.Y(0)-10,'text-anchor':'middle','font-size':12,fill:'#596a62'},s);t.textContent='ŷ = y';}
+    else{var c=plot(s,function(p){return -Math.log(p);},0.01,1,-0.2,4.6,{color:'#f59322'});
+      var t2=el('text',{x:c.X(0.07),y:c.Y(4.1),'font-size':12,fill:'#596a62'},s);t2.textContent='confident & wrong';
+      var t3=el('text',{x:c.X(1),y:c.Y(0)-10,'text-anchor':'end','font-size':12,fill:'#596a62'},s);t3.textContent='correct';}
+  });
+
+  // Gradient descent on L(w) = w^2 with different learning rates
+  document.querySelectorAll('svg[data-gd]').forEach(function(s){var eta=+s.dataset.gd;var m=plot(s,function(x){return x*x;},-2.4,2.4,-0.3,5.8,{color:'#c9d1c8',w:3});
+    var wv=-2.05,pts=[[wv,wv*wv]];for(var k=0;k<6;k++){wv=wv-eta*2*wv;pts.push([wv,wv*wv]);}
+    var d='';pts.forEach(function(p,k){var x=Math.max(-2.4,Math.min(2.4,p[0])),y=Math.min(5.8,p[1]);d+=(k?'L':'M')+m.X(x).toFixed(1)+' '+m.Y(y).toFixed(1);});
+    el('path',{d:d,fill:'none',stroke:'#97620b','stroke-width':1.8,'stroke-dasharray':'4 3'},s);
+    pts.forEach(function(p,k){if(Math.abs(p[0])>2.4)return;el('circle',{cx:m.X(p[0]),cy:m.Y(Math.min(5.8,p[1])),r:k?3.6:4.6,fill:k?'#97620b':'#143c35'},s);});
+    el('circle',{cx:m.X(0),cy:m.Y(0),r:3,fill:'#668345'},s);
+  });
+
+  // Present mode
+  var slides=[].slice.call(document.querySelectorAll('.slide')),cur=0,body=document.body,count=document.getElementById('present-count');
+  function show(n){cur=Math.max(0,Math.min(slides.length-1,n));slides.forEach(function(s,k){s.classList.toggle('current',k===cur);});count.textContent=(cur+1)+' / '+slides.length;}
+  function start(n){body.classList.add('presenting');show(n||0);if(document.documentElement.requestFullscreen&&!body.classList.contains('capture')){document.documentElement.requestFullscreen().catch(function(){});}}
+  function stop(){body.classList.remove('presenting');slides.forEach(function(s){s.classList.remove('current');});if(document.fullscreenElement)document.exitFullscreen();slides[cur].scrollIntoView({block:'start'});}
+  document.getElementById('present-btn').addEventListener('click',function(){var r=0;slides.forEach(function(s,k){if(s.getBoundingClientRect().top<innerHeight/2)r=k;});start(r);});
+  document.getElementById('prev-btn').addEventListener('click',function(){show(cur-1);});
+  document.getElementById('next-btn').addEventListener('click',function(){show(cur+1);});
+  document.getElementById('exit-btn').addEventListener('click',stop);
+  document.addEventListener('keydown',function(e){if(!body.classList.contains('presenting'))return;
+    if(['ArrowRight','PageDown',' ','Enter'].indexOf(e.key)>-1){e.preventDefault();show(cur+1);}
+    else if(['ArrowLeft','PageUp','Backspace'].indexOf(e.key)>-1){e.preventDefault();show(cur-1);}
+    else if(e.key==='Home'){show(0);}else if(e.key==='End'){show(slides.length-1);}else if(e.key==='Escape'){stop();}});
+  document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement&&body.classList.contains('presenting')&&!body.classList.contains('capture'))stop();});
+  // ?slide=N opens one slide full-window (used to render thumbnails)
+  var q=/[?&]slide=(\d+)/.exec(location.search);if(q){body.classList.add('capture');start(+q[1]-1);}
+})();
+</script>
+</body>
+</html>

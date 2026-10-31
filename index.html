@@ -12,7 +12,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
 <a class="brand" href="#home"><span class="brand-mark" aria-hidden="true">NP</span> Neil Patel</a>
-<nav aria-label="Main navigation"><a href="#about">About</a><a href="#artifact">Work ↗</a></nav>
+<nav aria-label="Main navigation"><a href="#about">About</a><a href="#work">Work ↓</a></nav>
 </header>
 <main id="main">
 <section class="hero section-wrap" id="home" aria-labelledby="hero-title">
@@ -20,7 +20,7 @@
 <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Neil Patel · Software engineer</p>
 <h1 id="hero-title">Engineering solutions.<br><em>Exploring possibilities.</em></h1>
 <p class="hero-description">I’m a software engineer working in robotics. Explore my projects, practical frameworks, and technical resources, built to share ideas and make complex concepts more approachable.</p>
-<div class="actions"><a class="button primary" href="#artifact">Explore my work ↗</a><a class="text-link" href="#about">About me ↓</a></div>
+<div class="actions"><a class="button primary" href="#work">Explore my work ↓</a><a class="text-link" href="#about">About me ↓</a></div>
 </div>
 <div class="hero-visual" aria-label="Professional interests: software engineering, robotics, and technical resources">
 <div class="visual-topline"><span>IDEAS INTO PRACTICE</span><span>NEIL PATEL</span></div>
@@ -40,6 +40,14 @@
 <h3>Personal value proposition</h3>
 <p>I bring a software engineering perspective grounded in the robotics industry. My focus is on connecting complex technical concepts to practical problems and communicating them through clear, useful resources. I combine professional context with a commitment to continuous learning and real-world relevance.</p>
 </div>
+</div>
+</section>
+
+<section class="section-wrap portfolio-section" id="work" aria-labelledby="work-title">
+<div class="section-heading"><div><p class="eyebrow">Selected work</p><h2 id="work-title">Artifacts</h2></div><p>Each artifact includes the deliverable, its purpose, and how it was made.</p></div>
+<div class="work-grid">
+<a class="artifact-card" href="#artifact"><div class="card-art"><span class="mini-label">QUICK-REFERENCE GUIDE</span><strong>ML Algorithm Framework</strong><span class="mini-rule"></span><span class="mini-footer">12 METHODS · PDF + PNG</span></div><div class="card-copy"><span class="tag">Artifact 01 · Technical resource</span><h3>ML Algorithm Framework</h3><p>A one-page comparison of 12 machine learning methods across tabular data, computer vision, language, and generative AI.</p><div class="card-meta"><span>Read the artifact</span><span class="card-arrow" aria-hidden="true">↓</span></div></div></a>
+<a class="artifact-card" href="#nn-artifact"><div class="card-art"><span class="mini-label">VISUAL PRESENTATION</span><strong>Inside a Neural Network</strong><span class="mini-rule"></span><span class="mini-footer">12 SLIDES · HTML + PDF</span></div><div class="card-copy"><span class="tag">Artifact 02 · Visual presentation</span><h3>Inside a Neural Network</h3><p>Slides that explain layers, neurons, weights, activation functions, loss functions, and optimizers, backed by TensorFlow Playground experiments.</p><div class="card-meta"><span>Read the artifact</span><span class="card-arrow" aria-hidden="true">↓</span></div></div></a>
 </div>
 </section>
 
@@ -105,6 +113,64 @@
 <li>Brown, T. B., et al. (2020). <a href="https://arxiv.org/abs/2005.14165">Language models are few-shot learners</a>.</li>
 <li>Goodfellow, I., et al. (2014). <a href="https://arxiv.org/abs/1406.2661">Generative adversarial nets</a>.</li>
 <li>Ho, J., Jain, A., & Abbeel, P. (2020). <a href="https://arxiv.org/abs/2006.11239">Denoising diffusion probabilistic models</a>.</li>
+</ol>
+</section>
+</div>
+</article>
+
+<article class="artifact-section" id="nn-artifact" aria-labelledby="nn-title">
+<div class="section-wrap">
+<div class="artifact-heading"><div><p class="eyebrow">Featured work · Visual presentation</p><h2 id="nn-title">Inside a Neural Network</h2><p class="artifact-subtitle">Six components, one learning loop, and evidence from TensorFlow Playground</p></div><a class="button primary" href="neural-network-components.html">View the slides ↗</a></div>
+<div class="artifact-intro"><span class="tag">Visual presentation · 12 slides</span><p>An illustrated walkthrough of how a neural network turns inputs into predictions and learns from its mistakes. Each component is defined, drawn, and tied to an experiment I ran in TensorFlow Playground.</p><div class="actions"><a class="text-link" href="neural-network-components.html">Open the presentation ↗</a><a class="text-link" href="Neural-Network-Components.pdf" download>Download the PDF ↓</a></div></div>
+<figure class="deck-preview"><a href="neural-network-components.html"><img src="neural-network-assets/nn-architecture-slide.jpg" width="1920" height="1080" loading="lazy" alt="Slide 2 of the presentation: a diagram of a neural network with two inputs, two hidden layers of four neurons, and one output. Arrows show the forward pass into a loss function and a dashed backward pass to an optimizer that updates every weight. Numbered badges mark the six components."></a><figcaption>Slide 2, the architecture overview. Numbered badges link each part of the network to its own slide.</figcaption></figure>
+<div class="details-grid">
+<section><h3>Introduction</h3><p>Neural networks power image recognition, language tools, and prediction systems, but their inner workings are often explained with equations alone. This presentation is for students and non-specialist colleagues who want a clear mental model of what each part of a network does and why it matters.</p></section>
+<section><h3>Description</h3><p>The 12-slide deck opens with an architecture diagram that shows data flowing from the input layer through two hidden layers to the output, then into the loss function and back to the optimizer. Six slides follow, one per component: layers, neurons, weights and biases, activation functions, loss functions, and optimization algorithms. Each pairs a definition with a diagram or chart and an observation from TensorFlow Playground. The deck closes with a table that classifies each component as learned or chosen, a page of experiment results, a summary slide, and sources.</p><p>Deliverables: the <a href="neural-network-components.html">web presentation</a>, with a full-screen present mode, and a 12-page <a href="Neural-Network-Components.pdf" download>PDF</a>.</p></section>
+<section><h3>Objective</h3><p>Define and illustrate the six core components of a neural network, show how they work together during training, and use hands-on experiments to show how changing each one affects training speed, model complexity, and performance.</p></section>
+<section><h3>Process</h3><ol>
+<li>Reviewed the assignment, the 75-point rubric, and the portfolio requirements.</li>
+<li>Ran 12 network configurations in TensorFlow Playground on the circle and spiral datasets, changing one setting at a time: hidden layers, neurons, activation function, learning rate, input features, and noise. I held the seed (0.42), 50% train/test split, and batch size (10) constant.</li>
+<li>Repeated most configurations 3–5 times and recorded the median test loss, because random starting weights changed the results from run to run.</li>
+<li>Designed one architecture diagram with numbered badges, so every component slide connects back to its place in the network.</li>
+<li>Wrote each component slide as a definition, a visual, and an “observed” callout with Playground evidence. Charts of the activation, loss, and gradient-descent curves are computed from the actual functions.</li>
+<li>Added a learned-versus-chosen classification table to separate parameters from design decisions, then a summary of why visualization matters.</li>
+<li>Built the slides in HTML and SVG, exported a PDF, and checked every slide for alignment, overflow, and readability. Images include descriptive alt text.</li>
+</ol></section>
+<section><h3>Tools and technologies used</h3><p>TensorFlow Playground for experiments. HTML, CSS, and JavaScript with inline SVG for the slides, diagrams, and charts. Google Chrome to export the PDF, and Python with Pillow to crop the Playground screenshots. Claude Code (Anthropic) assisted with running and recording the experiments, drafting, and building the slides.</p></section>
+<section><h3>Value proposition</h3><p>The presentation turns abstract vocabulary into a picture someone can reason with. A reader can find any component on the architecture diagram, see what it does, and see what happened when it was changed.</p></section>
+<section><h3>Unique value</h3><p>Every concept is backed by a measured result rather than a generic claim. The slides report medians across repeated runs, note where results varied, and separate learned parameters from human design choices, a distinction that is often blurred in introductory material.</p></section>
+<section><h3>Relevance</h3><p>Students can use it to review fundamentals before building models. Teams can use it to explain to stakeholders why a model needs tuning, more data, or a different architecture. It demonstrates experimental reasoning, technical communication, and visual design, complementing the method-selection focus of the ML Algorithm Framework.</p></section>
+<section><h3>How to use the presentation</h3><p>Start with slide 2 for the big picture, then read the component slides in order or jump to the one you need. Select <strong>Present</strong> for full-screen slides and use the arrow keys to move. To reproduce an experiment, open the Playground and apply the settings listed on slide 10.</p></section>
+</div>
+<section class="methods-section" aria-labelledby="nn-glance-title">
+<div class="section-heading"><div><p class="eyebrow">The presentation, at a glance</p><h3 id="nn-glance-title">Six components. One learning loop.</h3></div></div>
+<p class="table-instruction">On smaller screens, scroll the table horizontally to see all columns.</p>
+<div class="table-scroll" role="region" aria-label="Neural network components summary, horizontally scrollable" tabindex="0">
+<table>
+<caption>Accessible web summary of the presentation’s six components</caption>
+<thead><tr><th scope="col">Component</th><th scope="col">What it does</th><th scope="col">Learned or chosen</th><th scope="col">What I observed in TensorFlow Playground</th></tr></thead>
+<tbody>
+<tr><th scope="row">Layers</th><td>Organize computation into input, hidden, and output stages.</td><td>Chosen</td><td>Circle dataset: no hidden layer stayed at test loss 0.50; one hidden layer of four neurons reached 0.02.</td></tr>
+<tr><th scope="row">Neurons</th><td>Compute a weighted sum plus bias, then apply an activation.</td><td>Chosen</td><td>Spiral dataset: two neurons stayed at test loss 0.47; layers of 8, 8, and 6 neurons with sine features reached 0.01 or lower.</td></tr>
+<tr><th scope="row">Weights and biases</th><td>Scale and shift every signal; these are the model’s parameters.</td><td>Learned</td><td>Random starting weights made identical settings finish differently, so most results are medians of 3–5 runs.</td></tr>
+<tr><th scope="row">Activation functions</th><td>Add nonlinearity so the network can draw curved boundaries.</td><td>Chosen</td><td>Median test loss on the circle: linear 0.489, sigmoid 0.054, tanh 0.022, ReLU 0.009.</td></tr>
+<tr><th scope="row">Loss functions</th><td>Measure how wrong a prediction is: MSE for regression, cross-entropy for classification.</td><td>Chosen</td><td>A noise level of 40 on the spiral kept training loss at 0.03 but raised test loss to 0.10, a sign of overfitting.</td></tr>
+<tr><th scope="row">Optimization algorithms</th><td>Use gradients from backpropagation to update weights (SGD, momentum, Adam).</td><td>Chosen</td><td>Learning rate 0.001: 0.363 (too slow). 0.03: 0.023 (stable). 3: 0.102, ranging 0.025–0.182 (erratic).</td></tr>
+</tbody>
+</table>
+</div>
+<aside class="scope-note"><strong>A learning exercise, not a benchmark.</strong> The results come from small two-dimensional practice datasets in TensorFlow Playground and vary between runs. They illustrate how each component behaves; they do not predict performance on real-world data.</aside>
+</section>
+<section class="references" aria-labelledby="nn-references-title">
+<p class="eyebrow">Go deeper</p><h3 id="nn-references-title">References</h3><p>Numbers match the sources slide in the presentation. Experiments run October 31, 2026.</p>
+<ol>
+<li>Smilkov, D., & Carter, S. <a href="https://playground.tensorflow.org/">A Neural Network Playground</a>. TensorFlow.</li>
+<li>Goodfellow, I., Bengio, Y., & Courville, A. (2016). <a href="https://www.deeplearningbook.org/">Deep learning</a>. MIT Press.</li>
+<li>Google for Developers. <a href="https://developers.google.com/machine-learning/crash-course/neural-networks">Machine Learning Crash Course: Neural networks</a>.</li>
+<li>Rumelhart, D. E., Hinton, G. E., & Williams, R. J. (1986). Learning representations by back-propagating errors. <i>Nature, 323</i>, 533–536.</li>
+<li>Nair, V., & Hinton, G. E. (2010). Rectified linear units improve restricted Boltzmann machines. <i>Proceedings of ICML 2010</i>.</li>
+<li>Kingma, D. P., & Ba, J. (2015). <a href="https://arxiv.org/abs/1412.6980">Adam: A method for stochastic optimization</a>.</li>
+<li>PyTorch. <a href="https://docs.pytorch.org/docs/stable/nn.html#loss-functions">torch.nn: Loss functions</a>.</li>
 </ol>
 </section>
 </div>

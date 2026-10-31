@@ -5,7 +5,7 @@ A static, GitHub Pages–ready professional portfolio highlighting Neil Patel’
 ## Publish on GitHub Pages
 
 1. Create a GitHub repository (a public repository is the simplest option for free GitHub Pages hosting).
-2. Upload the **contents** of this folder to the repository root, not inside an additional `Portfolio` folder. Include `index.html`, `styles.css`, `ML-Algorithm-Framework.pdf`, `ML-Algorithm-Framework.png`, and `.nojekyll`. Keep the deliverable filenames and capitalization unchanged.
+2. Upload the **contents** of this folder to the repository root, not inside an additional `Portfolio` folder. Include `index.html`, `styles.css`, `neural-network-components.html`, `Neural-Network-Components.pdf`, the `neural-network-assets/` folder, `ML-Algorithm-Framework.pdf`, `ML-Algorithm-Framework.png`, and `.nojekyll`. Keep the deliverable filenames and capitalization unchanged.
 3. In the repository, open **Settings → Pages**.
 4. Under **Build and deployment**, choose **Deploy from a branch**.
 5. Select the branch containing your files (usually `main`) and the **/ (root)** folder, then select **Save**.
@@ -23,13 +23,26 @@ All local asset links are relative, so the site works under a repository subpath
 
 ## Contents
 
-- `index.html`: portfolio, bio, personal value proposition, first artifact, accessible algorithm summary, and references.
+- `index.html`: portfolio, bio, personal value proposition, artifact index, both artifacts with their artifact information, accessible summaries, and references.
 - `styles.css`: responsive layout, keyboard focus states, and reduced-motion support.
 - `ML-Algorithm-Framework.pdf`: the original, unchanged vector artifact.
 - `ML-Algorithm-Framework.png`: a high-resolution rendering of the PDF for image-based display. The repository copy was rendered at 200 DPI using PyMuPDF; the portfolio describes the author’s original Poppler-based workflow.
+- `neural-network-components.html`: the second artifact, a 12-slide neural network presentation. It scrolls as a page, has a full-screen **Present** mode (arrow keys, Esc to exit), and prints one slide per landscape page. Its styles and scripts are self-contained.
+- `Neural-Network-Components.pdf`: the presentation exported from Chrome (12 pages, 13.333 × 7.5 in).
+- `neural-network-assets/`: TensorFlow Playground decision-boundary images used in the slides and the slide-2 preview image used on the home page.
 - `.nojekyll`: serves the static site without Jekyll processing.
 
-The first artifact includes Title, Introduction, Description, Objective, Process, Tools and Technologies Used, Value Proposition, Unique Value, Relevance, How to Use the Guide, and References. The reference numbers match those in the PDF.
+Each artifact includes Title, Introduction, Description, Objective, Process, Tools and Technologies Used, Value Proposition, Unique Value, Relevance, a usage note, and References.
+
+### Regenerating the neural network PDF
+
+After editing `neural-network-components.html`, re-export the PDF with headless Chrome from this folder:
+
+```cmd
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --no-pdf-header-footer --virtual-time-budget=5000 --print-to-pdf="%CD%\Neural-Network-Components.pdf" "%CD%\neural-network-components.html"
+```
+
+Adding `?slide=2` to the presentation URL shows a single slide full-window, which is how the preview image was captured.
 
 ## Preview locally
 
