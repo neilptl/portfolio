@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Explanatory document for Neil Patel's LLM training infographic: main points, key considerations, design rationale, and references.">
+<meta name="theme-color" content="#143c35">
+<title>LLM Training Explanation | Neil Patel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap">
+<style>
+:root{--paper:#f8f7f2;--ink:#183a34;--muted:#4d5f57;--line:#d6ddd3;--green:#143c35;--soft:#eef2e4;--font:'DM Sans',system-ui,sans-serif;--display:'Manrope',system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.6 var(--font)}
+a{color:inherit;text-underline-offset:3px}
+a:focus-visible{outline:3px solid #97620b;outline-offset:3px}
+.back{display:block;max-width:760px;margin:0 auto;padding:24px 24px 0;font-size:13px;font-weight:700}
+main{max-width:760px;margin:0 auto;padding:20px 24px 56px}
+.eyebrow{text-transform:uppercase;font-size:10px;font-weight:700;letter-spacing:.17em;margin:0 0 12px}
+h1,h2{font-family:var(--display);letter-spacing:-.03em;line-height:1.2}
+h1{font-size:32px;font-weight:600;margin:0 0 8px}
+h2{font-size:18px;margin:28px 0 8px;padding-top:18px;border-top:1px solid var(--line)}
+p{margin:0 0 12px}
+ul{margin:0 0 12px;padding-left:20px}
+li{margin-bottom:7px}
+.meta{color:var(--muted);font-size:13px}
+.refs{font-size:12.5px;color:var(--muted);padding-left:24px;margin:0}
+.refs li{margin-bottom:5px;overflow-wrap:anywhere}
+.note{background:var(--soft);padding:12px 16px;font-size:13.5px}
+@page{size:letter;margin:.65in .75in}
+@media print{
+  body{background:#fff;font-size:10.4pt;line-height:1.42}
+  .back{display:none}
+  main{max-width:none;padding:0}
+  h1{font-size:22pt}
+  h2{font-size:12.5pt;margin:13pt 0 5pt;padding-top:9pt;break-after:avoid}
+  li{margin-bottom:3.5pt}
+  p,ul{margin-bottom:6pt}
+  .refs{font-size:8.6pt;line-height:1.32}.refs li{margin-bottom:2.5pt;break-inside:avoid}
+  .note{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<a class="back" href="index.html#llm-artifact">← Back to portfolio</a>
+<main>
+<p class="eyebrow">Explanatory document · Portfolio artifact 03</p>
+<h1>What it takes to train an LLM</h1>
+<p class="meta">Neil Patel · AIML-501 Model Development · Indiana Wesleyan University · November 2026<br>Accompanies the <a href="llm-training-costs.html">one-slide infographic</a> (<a href="LLM-Training-Costs.pdf">PDF</a>, <a href="LLM-Training-Costs.png">PNG</a>).</p>
+
+<h2>Main points</h2>
+<ul>
+<li><strong>Training is a pipeline, not one event.</strong> The graphic follows eight stages: collect, clean, design, pretrain, evaluate, fine-tune, safety test, and deploy. Pretraining is the most resource-intensive single stage, but stages 3–7 repeat. Total development compute is 1.2 to 4 times the final run [1], and OpenAI’s final runs in 2024 were roughly 10% of its estimated R&amp;D compute [4].</li>
+<li><strong>Hardware and people drive the bill.</strong> Across four frontier-scale models, hardware made up 47–64% of development cost, R&amp;D staff 29–49%, and energy 2–6% [1]. These shares include equity compensation for staff.</li>
+<li><strong>Each resource improves the model differently.</strong> Data sets what the model can learn. Compute allows larger models and more experiments. Energy is a small part of the cost, but available power limits how large a cluster can be. People and time turn raw capacity into a more useful and safer product: Llama 2’s red-teaming alone involved more than 350 people [11].</li>
+<li><strong>Scale has grown quickly.</strong> GPT-3 trained on 300 billion tokens [6]; Llama 3.1 405B used 15.6 trillion [9]. Estimated GPT-3 energy was 1,287 MWh [5], about what 119 U.S. homes use in a year [14]. Llama 3.1 405B’s 30.84 million H100 GPU-hours [10] work out to about 21.6 GWh at rated GPU power, or about 2,000 homes.</li>
+<li><strong>Costs span a wide range.</strong> Public figures run from DeepSeek-V3’s stated $5.6M for its final run [13] to an estimated $191M for Gemini 1.0 Ultra [2]. Amortized hardware and energy costs for frontier runs grew about 2.4 times per year from 2016 [1].</li>
+</ul>
+
+<h2>Key considerations</h2>
+<ul>
+<li><strong>The numbers are not directly comparable.</strong> Cloud-rental estimates [2, 3] price the run at rental rates. Amortized estimates [1] spread hardware cost over its use, and came out about half as large on average. That is why GPT-4 appears as $40M–$78M and Gemini 1.0 Ultra as $30M–$191M. The graphic marks each method with its own symbol.</li>
+<li><strong>Headline costs leave things out.</strong> DeepSeek’s $5.6M assumes $2 per GPU-hour and excludes prior research and experiments [13]. Epoch’s hardware-and-energy breakdown excludes some data center and maintenance costs [1], and neither source itemizes data licensing.</li>
+<li><strong>Disclosure is limited and shrinking.</strong> OpenAI’s GPT-4 report withholds model size, hardware, training compute, and dataset construction [7], and the AI Index notes that companies are disclosing less [3]. The graphic says “Not disclosed” instead of filling those cells with guesses.</li>
+<li><strong>Some figures are derived or stated informally.</strong> The Llama energy figure is my own calculation (30.84M GPU-hours × 700 W) and excludes cooling, CPUs, and networking. GPT-3’s GPU count and training days are Patterson et al.’s estimates [5]. The Claude 3.5 Sonnet figure is the Anthropic CEO’s own words, “a few $10M’s,” so it is drawn as a range, and the range boundaries ($20M–$90M) are my reading of that phrase [12]. Altman’s statement that GPT-4 cost more than $100M is reported secondhand [8].</li>
+<li><strong>The stage ratings are judgment calls.</strong> The bars in the pipeline are my qualitative reading of the sources, not measurements. They are labeled as such on the slide.</li>
+</ul>
+
+<h2>Design rationale</h2>
+<ul>
+<li><strong>The title states the finding.</strong> A reader who sees only the headline still learns the main point.</li>
+<li><strong>One matrix links process to resources.</strong> The chevrons show sequence, and the bars beneath show which resources each stage uses, so the two required topics are read together. The dark Pretrain chevron marks the most resource-intensive stage.</li>
+<li><strong>Cost is on a log scale.</strong> Figures from about $4M to about $190M would crowd together on a linear axis. The markers sit inside the model table so each cost lines up with the facts about that model.</li>
+<li><strong>Accessibility.</strong> Marker shape and fill (solid circle, hollow circle, diamond) separate the estimate types, so color is never the only cue, and the palette passed a color-vision-deficiency check. Every cost is also printed as text. Data sits in real HTML tables with screen-reader labels, and the layout reflows on phones.</li>
+<li><strong>Consistent with the portfolio.</strong> The slide reuses the portfolio’s colors and typefaces so it reads as part of the same body of work.</li>
+</ul>
+
+<p class="note"><strong>Currency of data.</strong> Figures were checked November 8, 2026. They describe widely documented models through 2024, because few newer models have verifiable public training data.</p>
+
+<h2>References</h2>
+<ol class="refs">
+<li>Cottier, B., et al. (2024). <a href="https://arxiv.org/abs/2405.21015">The rising costs of training frontier AI models</a>. arXiv.</li>
+<li>Stanford HAI. (2024). <a href="https://hai.stanford.edu/ai-index/2024-ai-index-report">Artificial Intelligence Index Report 2024</a>. Includes the GPT-3, GPT-4, and Gemini cloud-rental estimates; the GPT-3 figure was taken from a secondary listing of the report’s data.</li>
+<li>Stanford HAI. (2025). <a href="https://hai.stanford.edu/assets/files/hai_ai-index-report-2025_chapter1_final.pdf">Artificial Intelligence Index Report 2025, Chapter 1</a>.</li>
+<li>You, J. (2025). <a href="https://epoch.ai/data-insights/openai-compute-spend">Most of OpenAI’s 2024 compute went to experiments</a>. Epoch AI.</li>
+<li>Patterson, D., et al. (2021). <a href="https://arxiv.org/abs/2104.10350">Carbon emissions and large neural network training</a>. arXiv.</li>
+<li>Brown, T. B., et al. (2020). <a href="https://arxiv.org/abs/2005.14165">Language models are few-shot learners</a>. arXiv.</li>
+<li>OpenAI. (2023). <a href="https://arxiv.org/abs/2303.08774">GPT-4 technical report</a>. arXiv.</li>
+<li>TechSpot. (2023). <a href="https://www.techspot.com/news/98350-size-doesnt-matter-ai-models-openai-ceo-sam.html">Size doesn’t matter for AI models, says OpenAI CEO Sam Altman</a>.</li>
+<li>Llama Team, AI @ Meta. (2024). <a href="https://arxiv.org/abs/2407.21783">The Llama 3 herd of models</a>. arXiv.</li>
+<li>Meta. (2024). <a href="https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md">Llama 3.1 model card</a>. GitHub.</li>
+<li>Touvron, H., et al. (2023). <a href="https://arxiv.org/abs/2307.09288">Llama 2: Open foundation and fine-tuned chat models</a>. arXiv.</li>
+<li>Amodei, D. (2025). <a href="https://www.darioamodei.com/post/on-deepseek-and-export-controls">On DeepSeek and export controls</a>.</li>
+<li>DeepSeek-AI. (2024). <a href="https://arxiv.org/abs/2412.19437">DeepSeek-V3 technical report</a>. arXiv.</li>
+<li>U.S. Energy Information Administration. <a href="https://www.eia.gov/tools/faqs/faq.php?id=97&amp;t=3">How much electricity does an American home use?</a> (10,791 kWh per year, 2022).</li>
+<li>IBM Technology. <a href="https://www.youtube.com/watch?v=5sLYAQS9sWQ">How large language models work</a>. YouTube. Course resource.</li>
+<li>Eye on Tech. <a href="https://www.youtube.com/watch?v=OGmDr8TLtTo">What is ChatGPT? (In about a minute)</a>. YouTube. Course resource.</li>
+<li>Wolfram, S. (2023). <a href="https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/">What is ChatGPT doing … and why does it work?</a> Course resource.</li>
+</ol>
+</main>
+</body>
+</html>
