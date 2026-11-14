@@ -72,9 +72,8 @@
 <section><h3>Description</h3><p>The downloadable framework compares 12 algorithms and model families: linear regression, decision trees, random forests, gradient boosting, support vector machines, convolutional neural networks, K-means, principal component analysis, BERT-style transformers, GPT-style transformers, generative adversarial networks, and diffusion models. Each entry includes a learning type, relevant application domains, a short mechanism, an illustrative real-world use case, and a distinguishing feature.</p><p>The vector PDF preserves sharp text when enlarged or printed; the high-resolution PNG supports image-based display. Deliverables: <a href="ML-Algorithm-Framework.pdf" download>ML-Algorithm-Framework.pdf</a> and <a href="ML-Algorithm-Framework.png" download>ML-Algorithm-Framework.png</a>.</p></section>
 <section><h3>Objective</h3><p>Explain how major machine learning approaches relate to one another across tabular data, computer vision, natural language processing, and generative AI, and support an informed first discussion about method selection.</p></section>
 <section><h3>Process</h3><ol>
-<li>Reviewed the assignment, the 75-point rubric, and the professional portfolio requirements.</li>
-<li>Selected a representative set spanning predictive methods, structure discovery, text understanding, and content generation. The assignment uses “algorithms” broadly; the framework includes both classical algorithms and neural model families.</li>
-<li>Classified each entry by its illustrated training signal. Known external targets indicate supervised learning; clustering, projection, and unconditional distribution learning indicate unsupervised learning; targets created from text indicate self-supervised pretraining. Because the assignment asks for supervised/unsupervised categories, the legend explains that self-supervised pretraining is commonly placed within the broader unsupervised category.</li>
+<li>Selected a representative set spanning predictive methods, structure discovery, text understanding, and content generation. The framework uses “algorithms” broadly and includes both classical algorithms and neural model families.</li>
+<li>Classified each entry by its illustrated training signal. Known external targets indicate supervised learning; clustering, projection, and unconditional distribution learning indicate unsupervised learning; targets created from text indicate self-supervised pretraining. The legend explains that self-supervised pretraining is commonly placed within the broader unsupervised category.</li>
 <li>Assigned domains based on the input and output in each example rather than treating domains as exclusive categories. SVM spans text, image features, and tabular vectors; GPT spans NLP and generative AI. The listed domains are representative, not exhaustive.</li>
 <li>Checked mechanisms and classification against technical documentation and original papers. Specified the training stage for BERT and GPT and the unconditional setup for GANs and diffusion models to avoid assigning an architecture one permanent learning type.</li>
 <li>Organized six supervised entries first, followed by structure discovery and language representation, then a final row focused on generative AI. Added direct comparisons between single trees and ensembles, BERT and GPT, and prediction and generation. Used consistent card fields and explicit labels so color is not the only classification cue.</li>
@@ -112,7 +111,7 @@
 <aside class="scope-note"><strong>A framework, not a performance ranking.</strong> Training setup depends on the application. CNNs and transformers do not have one fixed learning style. BERT can be fine-tuned with labels; generative models can be conditioned on text or classes. These are illustrative use cases, not results from trained models.</aside>
 </section>
 <section class="references" aria-labelledby="references-title">
-<p class="eyebrow">Go deeper</p><h3 id="references-title">References</h3><p>Numbers match the visual framework. Technical documentation consulted October 24, 2026.</p>
+<p class="eyebrow">Go deeper</p><h3 id="references-title">References</h3><p>Numbers match the visual framework.</p>
 <ol>
 <li>scikit-learn. <a href="https://scikit-learn.org/stable/modules/linear_model.html">Linear models</a>.</li>
 <li>scikit-learn. <a href="https://scikit-learn.org/stable/modules/tree.html">Decision trees</a>.</li>
@@ -140,7 +139,6 @@
 <section><h3>Description</h3><p>The 12-slide deck opens with an architecture diagram that shows data flowing from the input layer through two hidden layers to the output, then into the loss function and back to the optimizer. Six slides follow, one per component: layers, neurons, weights and biases, activation functions, loss functions, and optimization algorithms. Each pairs a definition with a diagram or chart and an observation from TensorFlow Playground. The deck closes with a table that classifies each component as learned or chosen, a page of experiment results, a summary slide, and sources.</p><p>Deliverables: the <a href="neural-network-components.html">web presentation</a>, with a full-screen present mode, and a 12-page <a href="Neural-Network-Components.pdf" download>PDF</a>.</p></section>
 <section><h3>Objective</h3><p>Define and illustrate the six core components of a neural network, show how they work together during training, and use hands-on experiments to show how changing each one affects training speed, model complexity, and performance.</p></section>
 <section><h3>Process</h3><ol>
-<li>Reviewed the assignment, the 75-point rubric, and the portfolio requirements.</li>
 <li>Ran 12 network configurations in TensorFlow Playground on the circle and spiral datasets, changing one setting at a time: hidden layers, neurons, activation function, learning rate, input features, and noise. I held the seed (0.42), 50% train/test split, and batch size (10) constant.</li>
 <li>Repeated most configurations 3–5 times and recorded the median test loss, because random starting weights changed the results from run to run.</li>
 <li>Designed one architecture diagram with numbered badges, so every component slide connects back to its place in the network.</li>
@@ -174,7 +172,7 @@
 <aside class="scope-note"><strong>A learning exercise, not a benchmark.</strong> The results come from small two-dimensional practice datasets in TensorFlow Playground and vary between runs. They illustrate how each component behaves; they do not predict performance on real-world data.</aside>
 </section>
 <section class="references" aria-labelledby="nn-references-title">
-<p class="eyebrow">Go deeper</p><h3 id="nn-references-title">References</h3><p>Numbers match the sources slide in the presentation. Experiments run October 31, 2026.</p>
+<p class="eyebrow">Go deeper</p><h3 id="nn-references-title">References</h3><p>Numbers match the sources slide in the presentation.</p>
 <ol>
 <li>Smilkov, D., & Carter, S. <a href="https://playground.tensorflow.org/">A Neural Network Playground</a>. TensorFlow.</li>
 <li>Goodfellow, I., Bengio, Y., & Courville, A. (2016). <a href="https://www.deeplearningbook.org/">Deep learning</a>. MIT Press.</li>
@@ -197,7 +195,7 @@
 <section><h3>Description</h3><p>A single 16:9 slide follows eight stages: collect, clean, design, pretrain, evaluate, fine-tune, safety test, and deploy. A matrix under the stages rates how heavily each uses data, compute, energy, and people and time. Below it, a panel gives each resource’s share of development cost and role in performance, and a table compares GPT-3, GPT-4, Gemini 1.0 Ultra, Llama 3.1 405B, Claude 3.5 Sonnet, and DeepSeek-V3.</p><p>Deliverables: the <a href="llm-training-costs.html">web version</a>, a <a href="LLM-Training-Costs.pdf" download>PDF</a>, a <a href="LLM-Training-Costs.png" download>PNG</a>, and an <a href="llm-training-explanation.html">explanatory document</a> (<a href="LLM-Training-Explanation.pdf" download>PDF</a>) covering the main points, key considerations, and design rationale.</p></section>
 <section><h3>Objective</h3><p>Illustrate the key steps from data collection to deployment, explain how data, compute, energy, and time contribute to model performance and cost, and communicate infrastructure information clearly to varied audiences.</p></section>
 <section><h3>Process</h3><ol>
-<li>Reviewed the assignment and course resources from IBM Technology, Eye on Tech, and Stephen Wolfram.</li>
+<li>Reviewed explainers from IBM Technology, Eye on Tech, and Stephen Wolfram.</li>
 <li>Traced each figure to a primary paper, model card, or report wherever one was available, and noted the few that rely on secondary reporting.</li>
 <li>Separated cloud-rental estimates, amortized estimates, and developer statements, because mixing them would make unlike numbers look comparable.</li>
 <li>Marked undisclosed values as “Not disclosed” and labeled my own derivations and qualitative ratings.</li>
@@ -230,7 +228,7 @@
 <aside class="scope-note"><strong>Estimates, not audited costs.</strong> These figures use different methods and usually cover only the compute for one training run. Across four frontier-scale models, hardware made up 47–64% of development cost, R&amp;D staff 29–49%, and energy 2–6%. Stage ratings on the slide are my qualitative judgment.</aside>
 </section>
 <section class="references" aria-labelledby="llm-references-title">
-<p class="eyebrow">Go deeper</p><h3 id="llm-references-title">References</h3><p>Numbers match the infographic. Sources consulted November 8, 2026.</p>
+<p class="eyebrow">Go deeper</p><h3 id="llm-references-title">References</h3><p>Numbers match the infographic.</p>
 <ol>
 <li>Cottier, B., et al. (2024). <a href="https://arxiv.org/abs/2405.21015">The rising costs of training frontier AI models</a>.</li>
 <li>Stanford HAI. (2024). <a href="https://hai.stanford.edu/ai-index/2024-ai-index-report">AI Index Report 2024</a>.</li>
@@ -256,25 +254,24 @@
 <article class="artifact-section" id="explainable-ai-artifact" aria-labelledby="explainable-ai-title">
 <div class="section-wrap">
 <div class="artifact-heading"><div><p class="eyebrow">Featured work · Infographic</p><h2 id="explainable-ai-title">Explainable AI: Trust Needs the Score and the Reason</h2><p class="artifact-subtitle">Why language models are hard to explain, how tests build trust, and what labs are doing</p></div><a class="button primary" href="explainable-ai.html">View the infographic ↗</a></div>
-<div class="artifact-intro"><span class="tag">Infographic · 4 sections + explanatory document</span><p>Large language models now help with decisions in health care, finance, and law. Few people can say why a model gave a specific answer. This infographic covers the problem, the tests that measure reliability, and the methods labs use to look inside a model.</p><div class="actions"><a class="text-link" href="explainable-ai.html">Open the infographic ↗</a><a class="text-link" href="Explainable-AI.pdf" download>Download the PDF ↓</a><a class="text-link" href="Explainable-AI.png" download>Download the PNG ↓</a><a class="text-link" href="explainable-ai-explanation.html">Read the explanatory document ↗</a></div></div>
+<div class="artifact-intro"><span class="tag">Infographic · 4 sections</span><p>Large language models now help with decisions in health care, finance, and law. Few people can say why a model gave a specific answer. This infographic covers the problem, the tests that measure reliability, and the methods labs use to look inside a model.</p><div class="actions"><a class="text-link" href="explainable-ai.html">Open the infographic ↗</a><a class="text-link" href="Explainable-AI.pdf" download>Download the PDF ↓</a><a class="text-link" href="Explainable-AI.png" download>Download the PNG ↓</a></div></div>
 <figure class="deck-preview"><a href="explainable-ai.html"><img src="explainable-ai-assets/explainable-ai-preview.png" width="2400" height="1350" loading="lazy" alt="Top of the infographic. A dark green header reads Explainable AI: trust needs the score and the reason. A diagram on the right shows a prompt entering a dark LLM box and an answer coming out. A dashed label above the box reads Explainability shows why it answered. A dashed label below the answer reads Validation and metrics show what it does. Below the header, the first section begins with a definition of explainable AI and cards for health care and finance."></a><figcaption>The top of the infographic. Open it for all four sections.</figcaption></figure>
 <div class="details-grid">
 <section><h3>Introduction</h3><p>Explainable AI asks one thing of a model: show the reason behind the answer. This infographic is for managers, students, and anyone who uses AI output at work. It needs no technical background.</p></section>
-<section><h3>Description</h3><p>A single-page infographic in four sections. The first defines explainable AI, lists NIST’s four principles, and shows four real cases from health care, finance, law, and regulation. The second presents six obstacles, each with one hard number. The third walks through five validation steps and six metrics. A 100-square grid shows why accuracy alone misleads. The fourth compares recent work at OpenAI, Anthropic, Google DeepMind, and Meta. It then lists seven techniques with what each shows and where each falls short.</p><p>Deliverables: the <a href="explainable-ai.html">web version</a>, a <a href="Explainable-AI.pdf" download>PDF</a>, a <a href="Explainable-AI.png" download>PNG</a>, and an <a href="explainable-ai-explanation.html">explanatory document</a> (<a href="Explainable-AI-Explanation.pdf" download>PDF</a>) with a two-paragraph summary, key considerations, and 27 references.</p></section>
+<section><h3>Description</h3><p>A single-page infographic in four sections. The first defines explainable AI, lists NIST’s four principles, and shows four real cases from health care, finance, law, and regulation. The second presents six obstacles, each with one hard number. The third walks through five validation steps and six metrics. A 100-square grid shows why accuracy alone misleads. The fourth compares recent work at OpenAI, Anthropic, Google DeepMind, and Meta. It then lists seven techniques with what each shows and where each falls short.</p><p>Deliverables: the <a href="explainable-ai.html">web version</a>, a <a href="Explainable-AI.pdf" download>PDF</a>, and a <a href="Explainable-AI.png" download>PNG</a>. The 27 sources are listed below.</p></section>
 <section><h3>Objective</h3><p>Explain the main obstacles to interpreting generative AI output. Show how validation and performance metrics measure reliability. Present current industry techniques to a non-technical audience.</p></section>
 <section><h3>Process</h3><ol>
-<li>Reviewed the assignment, the rubric, and the portfolio requirements.</li>
 <li>Collected sources on explainability principles, LLM interpretability, evaluation benchmarks, and regulation. Primary papers, lab research posts, court records, and government documents came first.</li>
 <li>Checked each figure against its source. I dropped one claim that only secondary sources supported.</li>
 <li>Picked one concrete number for each challenge, so a reader sees evidence instead of adjectives.</li>
-<li>Designed four color-coded sections in the assignment’s order. A header diagram frames the score and the reason.</li>
+<li>Designed four color-coded sections in reading order. A header diagram frames the score and the reason.</li>
 <li>Built the page in HTML, CSS, and SVG. Exported the PDF and PNG with headless Chrome. Checked the layout at desktop and phone widths.</li>
 </ol></section>
 <section><h3>Tools and technologies used</h3><p>HTML, CSS, JavaScript, and inline SVG for the infographic and document. Google Chrome in headless mode to export the PDF and PNG files. Claude Code (Anthropic) assisted with research, fact checks, drafting, and building the page.</p></section>
 <section><h3>Value proposition</h3><p>The infographic gives a reader a short checklist for any AI system: how often it is right, why it answered, and who checked the reasons.</p></section>
 <section><h3>Unique value</h3><p>Most explainable AI primers stop at definitions. This one pairs each technique with its known limit and backs each challenge with a measured result. It treats metrics and explanations as two halves of one trust problem.</p></section>
 <section><h3>Relevance</h3><p>Teams can use it to plan an AI review, brief stakeholders, or question a vendor’s claims. It demonstrates AI evaluation, research synthesis, and information design. That skill set differs from the method comparison in Artifact 01, the experiments in Artifact 02, and the cost analysis in Artifact 03.</p></section>
-<section><h3>How to use the infographic</h3><p>Read from top to bottom. The header gives the main idea in one diagram. Each card leads with a number, then explains it. Use the technique table at the end as a reference. Follow the source numbers to the full list in the explanatory document.</p></section>
+<section><h3>How to use the infographic</h3><p>Read from top to bottom. The header gives the main idea in one diagram. Each card leads with a number, then explains it. Use the technique table at the end as a reference. Follow the source numbers to the reference list below.</p></section>
 </div>
 <section class="methods-section" aria-labelledby="explainable-ai-glance-title">
 <div class="section-heading"><div><p class="eyebrow">The infographic, at a glance</p><h3 id="explainable-ai-glance-title">Seven techniques. Each with a known limit.</h3></div></div>
@@ -297,7 +294,7 @@
 <aside class="scope-note"><strong>Snapshots, not rankings.</strong> Each figure describes the models tested in its study, from 2019 to 2025. The accuracy-trap grid is an illustration, not real data. Interpretability methods explain part of a model, not all of it.</aside>
 </section>
 <section class="references" aria-labelledby="explainable-ai-references-title">
-<p class="eyebrow">Go deeper</p><h3 id="explainable-ai-references-title">References</h3><p>Numbers match the infographic. Sources checked November 14, 2026.</p>
+<p class="eyebrow">Go deeper</p><h3 id="explainable-ai-references-title">References</h3><p>Numbers match the infographic.</p>
 <ol>
 <li>Phillips, P. J., et al. (2021). <a href="https://doi.org/10.6028/NIST.IR.8312">Four principles of explainable artificial intelligence</a> (NIST IR 8312).</li>
 <li>Obermeyer, Z., et al. (2019). <a href="https://doi.org/10.1126/science.aax2342">Dissecting racial bias in an algorithm used to manage the health of populations</a>. <i>Science</i>.</li>
