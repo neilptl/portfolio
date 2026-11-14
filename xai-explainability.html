@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An infographic by Neil Patel on explainable AI for large language models: what it means, why it is hard, how validation and metrics build trust, and what OpenAI, Anthropic, Google DeepMind, and Meta are doing.">
+<meta name="theme-color" content="#143c35">
+<title>Explainable AI | Neil Patel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap">
+<style>
+:root{--paper:#f8f7f2;--ink:#183a34;--muted:#566860;--line:#d6ddd3;--green:#143c35;--green-2:#24574b;--accent:#d6e997;--soft:#eef2e4;--white:#fff;--amber:#9a4f0b;--amber-soft:#f7ebdc;--amber-line:#e8cfb2;--blue:#3a4c9c;--blue-soft:#e8ebf7;--blue-line:#c9d0ec;--font:'DM Sans',system-ui,sans-serif;--display:'Manrope',system-ui,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#e9ebe3;color:var(--ink);font-family:var(--font);line-height:1.5}
+a{color:inherit;text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid #97620b;outline-offset:3px}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+.skip-link{position:absolute;left:16px;top:-100px;padding:10px 18px;background:var(--green);color:#fff;z-index:10}.skip-link:focus{top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+sup{font-size:.66em;line-height:0;color:var(--muted);font-weight:600;margin-left:.1em}
+
+/* page chrome */
+.bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 32px;background:rgba(248,247,242,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);font-size:13px}
+.bar .back{font-weight:700;text-decoration:none;white-space:nowrap}.bar .back:hover{text-decoration:underline}
+.bar .bar-title{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar-actions{display:flex;gap:10px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:4px;border:1px solid var(--green);background:var(--green);color:#fff;font:600 12px var(--font);text-decoration:none}
+.btn:hover{background:var(--green-2)}
+.btn.ghost{background:transparent;color:var(--ink)}.btn.ghost:hover{background:var(--soft)}
+.wrap{padding:28px 24px 24px}
+.hint{max-width:1200px;margin:0 auto;padding:0 24px 48px;font-size:13px;color:var(--muted)}
+
+/* poster */
+.poster{max-width:1200px;margin:0 auto;background:var(--paper);border-radius:6px;overflow:hidden;box-shadow:0 1px 0 var(--line),0 14px 30px #183a3414}
+.band{padding:40px 52px}
+.band+.band{border-top:1px solid var(--line)}
+.kicker{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+.kicker i{display:inline-block;width:22px;height:4px;border-radius:2px;background:var(--c,var(--green-2))}
+h2.sec{font-family:var(--display);font-size:29px;font-weight:700;letter-spacing:-.035em;line-height:1.15;margin-bottom:22px}
+h3{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+
+/* header */
+.head{background:var(--green);color:#fff;display:grid;grid-template-columns:1fr 430px;gap:44px;align-items:center;padding:44px 52px 42px}
+.head .meta{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12.5px;color:#c9d8d1;margin-bottom:18px}
+.head .meta b{color:var(--accent);font-weight:700;letter-spacing:.04em}
+.head h1{font-family:var(--display);font-weight:600;font-size:46px;line-height:1.06;letter-spacing:-.05em}
+.head h1 em{font-family:Georgia,serif;font-weight:400;letter-spacing:-.035em;color:var(--accent)}
+.head .sub{margin-top:16px;font-size:16.5px;line-height:1.5;color:#dce7e1;max-width:620px}
+.head svg{display:block;width:100%;height:auto}
+
+/* definition band */
+.def-grid{display:grid;grid-template-columns:400px 1fr;gap:40px}
+.def{background:var(--white);border:1px solid var(--line);border-left:5px solid var(--green-2);border-radius:6px;padding:20px 22px}
+.def p.big{font-family:var(--display);font-size:20px;line-height:1.35;letter-spacing:-.025em;font-weight:600}
+.def p.small{font-size:14.5px;color:var(--muted);margin-top:10px}
+.principles{margin-top:18px}
+.principles h3{font-size:14.5px;margin-bottom:10px}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pgrid div{background:var(--soft);border-radius:5px;padding:10px 12px}
+.pgrid b{display:block;font-family:var(--display);font-size:14px;letter-spacing:-.01em}
+.pgrid span{display:block;font-size:13px;color:var(--muted);line-height:1.35;margin-top:2px}
+.stakes h3.lbl{font-size:14.5px;margin-bottom:10px}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stake{display:grid;grid-template-columns:40px 1fr;gap:12px;background:var(--white);border:1px solid var(--line);border-radius:6px;padding:16px 18px}
+.stake svg{width:36px;height:36px}
+.stake .area{font-size:12.5px;font-weight:700;letter-spacing:.05em;color:var(--muted)}
+.stake .num{font-family:var(--display);font-size:24px;font-weight:800;letter-spacing:-.035em;line-height:1.15;color:var(--green)}
+.stake p{font-size:13.8px;line-height:1.42;color:var(--ink);margin-top:5px}
+
+/* challenges */
+.challenges{--c:var(--amber)}
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ch{background:var(--white);border:1px solid var(--amber-line);border-top:5px solid var(--amber);border-radius:6px;padding:16px 18px 18px}
+.ch .stat{font-family:var(--display);font-size:30px;font-weight:800;letter-spacing:-.04em;line-height:1.1;color:var(--amber)}
+.ch .stat small{font-size:17px;font-weight:700;letter-spacing:-.02em}
+.ch h3{margin-top:6px}
+.ch p{font-size:13.8px;line-height:1.45;color:var(--muted);margin-top:6px}
+
+/* validation */
+.validation{--c:var(--blue)}
+.intro{font-size:16px;max-width:820px;margin:-10px 0 22px;color:var(--ink)}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-bottom:26px;list-style:none;padding:0}
+.flow li{position:relative;background:var(--blue-soft);padding:14px 26px 14px 30px;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%,16px 50%);margin-right:-10px}
+.flow li:first-child{clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%);padding-left:18px}
+.flow li:nth-child(4){background:var(--blue);color:#fff}
+.flow li:nth-child(4) span{color:#dfe4fb}
+.flow b{display:block;font-family:var(--display);font-size:15.5px;letter-spacing:-.02em}
+.flow span{display:block;font-size:13px;line-height:1.35;color:#46506f;margin-top:3px}
+.vgrid{display:grid;grid-template-columns:1.05fr 1fr;gap:28px}
+.metrics{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--line);font-size:14px}
+.metrics caption{text-align:left;font-family:var(--display);font-weight:700;font-size:15.5px;letter-spacing:-.02em;padding-bottom:10px}
+.metrics th,.metrics td{text-align:left;padding:11px 14px;border-top:1px solid var(--line);vertical-align:top;line-height:1.4}
+.metrics thead th{background:var(--blue);color:#fff;font-size:12.5px;letter-spacing:.04em;border-top:0;padding:9px 14px}
+.metrics tbody th{font-family:var(--display);font-weight:700;width:38%;letter-spacing:-.01em}
+.metrics td{color:var(--muted)}
+.vside{display:flex;flex-direction:column;gap:16px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:6px;padding:16px 18px}
+.card h3{font-size:15.5px;margin-bottom:10px}
+.card h3 span{font:500 12.5px var(--font);color:var(--muted);letter-spacing:0;margin-left:6px}
+.trap{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center}
+.waffle{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;width:150px}
+.waffle i{display:block;aspect-ratio:1;background:#d8dce9;border-radius:2px}
+.waffle i.f{background:var(--amber)}
+.trap p{font-size:13.8px;line-height:1.45;color:var(--ink)}
+.trap .big{display:flex;gap:16px;margin-top:8px}
+.trap .big div{font-family:var(--display);font-weight:800;font-size:25px;letter-spacing:-.04em;line-height:1}
+.trap .big span{display:block;font:600 12px var(--font);letter-spacing:0;color:var(--muted);margin-top:4px}
+.bars{display:grid;grid-template-columns:150px 1fr 44px;gap:8px 12px;align-items:center;font-size:13.5px}
+.bars .tr{height:14px;background:#e4e7ef;border-radius:3px;overflow:hidden}
+.bars .tr i{display:block;height:100%;background:var(--blue)}
+.bars .tr i.h{background:var(--green-2)}
+.bars b{font-family:var(--display);text-align:right}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{background:var(--blue-soft);border:1px solid var(--blue-line);border-radius:20px;padding:4px 11px;font-size:12.8px;font-weight:600;color:#2e3c7c}
+.card p.note{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.4}
+.leak{display:flex;gap:12px;align-items:flex-start;background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:6px;padding:12px 16px;font-size:13.5px;line-height:1.45}
+.leak b{font-family:var(--display);white-space:nowrap}
+
+/* labs */
+.labs-band{--c:var(--green-2)}
+.lgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.lab{background:var(--white);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:flex;flex-direction:column}
+.lab h3{background:var(--green);color:#fff;padding:11px 16px;font-size:16px}
+.lab ul{list-style:none;padding:12px 16px 14px;display:flex;flex-direction:column;gap:9px}
+.lab li{font-size:13.5px;line-height:1.42;padding-left:14px;position:relative}
+.lab li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--green-2)}
+.lab li b{font-family:var(--display);color:var(--green-2)}
+.joint{margin:14px 0 26px;background:var(--soft);border-radius:6px;padding:12px 16px;font-size:14px;line-height:1.45}
+.joint b{font-family:var(--display)}
+.tech{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--line);font-size:14px}
+.tech caption{text-align:left;font-family:var(--display);font-weight:700;font-size:15.5px;letter-spacing:-.02em;padding-bottom:10px}
+.tech th,.tech td{text-align:left;padding:10px 14px;border-top:1px solid var(--line);vertical-align:top;line-height:1.42}
+.tech thead th{background:var(--green-2);color:#fff;font-size:12.5px;letter-spacing:.04em;border-top:0;padding:9px 14px}
+.tech tbody th{font-family:var(--display);font-weight:700;width:21%;letter-spacing:-.01em}
+.tech td:last-child{color:var(--amber)}
+.tech col.c2{width:43%}
+
+/* footer */
+.foot{background:var(--green);color:#dce7e1;padding:30px 52px 32px;display:grid;grid-template-columns:1fr 1.25fr;gap:40px}
+.foot .tag{font-family:var(--display);font-size:25px;line-height:1.25;letter-spacing:-.035em;color:#fff;font-weight:600}
+.foot .tag em{font-family:Georgia,serif;font-weight:400;color:var(--accent)}
+.foot .snap{font-size:13px;margin-top:12px;color:#c9d8d1}
+.foot .src{font-size:11.6px;line-height:1.5;color:#c9d8d1}
+.foot .src b{color:#fff}
+.foot sup{color:inherit}
+
+body.capture{background:var(--paper)}
+body.capture .bar,body.capture .hint,body.capture .skip-link{display:none}
+body.capture .wrap{padding:0}
+body.capture .poster{border-radius:0;box-shadow:none}
+
+@media screen and (max-width:1000px){
+  .head{grid-template-columns:1fr}
+  .head svg{max-width:460px}
+  .def-grid,.vgrid{grid-template-columns:minmax(0,1fr)}
+  .cgrid{grid-template-columns:1fr 1fr}
+  .lgrid{grid-template-columns:1fr 1fr}
+  .flow{grid-template-columns:1fr;gap:8px}
+  .flow li,.flow li:first-child{clip-path:none;margin-right:0;border-radius:5px;padding:12px 16px}
+  .foot{grid-template-columns:1fr}
+}
+@media screen and (max-width:640px){
+  .bar{padding:12px 16px}.bar .bar-title{display:none}
+  .wrap{padding:16px 12px 24px}.hint{padding:0 16px 32px}
+  .band,.head,.foot{padding-left:18px;padding-right:18px}
+  .head h1{font-size:33px}
+  h2.sec{font-size:24px}
+  .sgrid,.cgrid,.lgrid,.pgrid{grid-template-columns:minmax(0,1fr)}
+  .trap{grid-template-columns:minmax(0,1fr)}
+  .bars{grid-template-columns:110px 1fr 40px}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tech{min-width:640px}
+}
+@page{size:1200px 3520px;margin:0}
+@media print{
+  body{background:#fff}
+  .bar,.hint,.skip-link{display:none!important}
+  .wrap{padding:0}
+  .poster{width:1200px;max-width:none;border-radius:0;box-shadow:none}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#poster">Skip to the infographic</a>
+<header class="bar">
+  <a class="back" href="index.html#xai-artifact">← Back to portfolio</a>
+  <span class="bar-title">Explainable AI · Infographic · Neil Patel</span>
+  <div class="bar-actions">
+    <a class="btn ghost" href="xai-explanation.html">Explanation</a>
+    <a class="btn ghost" href="XAI-Explainability.png" download>PNG ↓</a>
+    <a class="btn" href="XAI-Explainability.pdf" download>PDF ↓</a>
+  </div>
+</header>
+
+<main class="wrap">
+<article class="poster" id="poster" aria-labelledby="poster-title">
+
+  <header class="head">
+    <div>
+      <p class="meta"><b>Infographic · Portfolio artifact 04</b><span>Neil Patel · AIML-501 Model Development · Indiana Wesleyan University · November 2026</span></p>
+      <h1 id="poster-title">Explainable AI: trust needs the score <em>and the reason</em></h1>
+      <p class="sub">Large language models now help with decisions in health care, finance, and law. Tests show how often a model is right. Explanations show the reason behind each answer. Trust needs both.</p>
+    </div>
+    <svg viewBox="0 0 430 236" role="img" aria-labelledby="hero-svg-t">
+      <title id="hero-svg-t">Diagram: a prompt enters a large language model drawn as a dark box of billions of parameters, and an answer comes out. Explainability looks inside the box to show why. Validation and metrics check the answer to show what the model does and how often it is right.</title>
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#d6e997"/></marker>
+        <pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="4.5" cy="4.5" r="1.25" fill="#3f7565"/></pattern>
+      </defs>
+      <!-- why bracket -->
+      <rect x="138" y="8" width="154" height="40" rx="6" fill="none" stroke="#d6e997" stroke-dasharray="4 3"/>
+      <text x="215" y="25" text-anchor="middle" fill="#fff" font-family="Manrope,sans-serif" font-weight="700" font-size="13">Explainability</text>
+      <text x="215" y="40" text-anchor="middle" fill="#c9d8d1" font-family="DM Sans,sans-serif" font-size="11.5">shows why it answered</text>
+      <path d="M215 50v20" stroke="#d6e997" stroke-width="1.6" marker-end="url(#ah)"/>
+      <!-- prompt -->
+      <rect x="4" y="96" width="92" height="56" rx="6" fill="#1f4c43" stroke="#4f8373"/>
+      <text x="50" y="121" text-anchor="middle" fill="#fff" font-family="Manrope,sans-serif" font-weight="700" font-size="13">Prompt</text>
+      <text x="50" y="138" text-anchor="middle" fill="#c9d8d1" font-family="DM Sans,sans-serif" font-size="11">“Approve loan?”</text>
+      <path d="M98 124h34" stroke="#d6e997" stroke-width="1.6" marker-end="url(#ah)"/>
+      <!-- box -->
+      <rect x="138" y="76" width="154" height="96" rx="6" fill="#0b2621" stroke="#d6e997" stroke-width="1.5"/>
+      <rect x="146" y="84" width="138" height="80" rx="3" fill="url(#dots)"/>
+      <rect x="152" y="107" width="126" height="34" rx="4" fill="#0b2621"/>
+      <text x="215" y="122" text-anchor="middle" fill="#fff" font-family="Manrope,sans-serif" font-weight="700" font-size="13">LLM</text>
+      <text x="215" y="135" text-anchor="middle" fill="#c9d8d1" font-family="DM Sans,sans-serif" font-size="10.5">billions of parameters</text>
+      <path d="M294 124h34" stroke="#d6e997" stroke-width="1.6" marker-end="url(#ah)"/>
+      <!-- answer -->
+      <rect x="334" y="96" width="92" height="56" rx="6" fill="#1f4c43" stroke="#4f8373"/>
+      <text x="380" y="121" text-anchor="middle" fill="#fff" font-family="Manrope,sans-serif" font-weight="700" font-size="13">Answer</text>
+      <text x="380" y="138" text-anchor="middle" fill="#c9d8d1" font-family="DM Sans,sans-serif" font-size="11">“Denied.”</text>
+      <!-- what bracket -->
+      <path d="M380 196v-22" stroke="#d6e997" stroke-width="1.6" marker-end="url(#ah)"/>
+      <rect x="262" y="196" width="164" height="38" rx="6" fill="none" stroke="#d6e997" stroke-dasharray="4 3"/>
+      <text x="344" y="212" text-anchor="middle" fill="#fff" font-family="Manrope,sans-serif" font-weight="700" font-size="13">Validation and metrics</text>
+      <text x="344" y="227" text-anchor="middle" fill="#c9d8d1" font-family="DM Sans,sans-serif" font-size="11.5">show what it does</text>
+    </svg>
+  </header>
+
+  <section class="band" aria-labelledby="sec-def">
+    <p class="kicker"><i aria-hidden="true"></i>Definition and stakes</p>
+    <h2 class="sec" id="sec-def">What explainable AI means, and why it matters</h2>
+    <div class="def-grid">
+      <div>
+        <div class="def">
+          <p class="big">Explainable AI (XAI) gives people the reasons behind a model’s answer.</p>
+          <p class="small">Transparency lets users check those reasons, catch errors, and challenge unfair results. Without it, people must trust a model on faith.</p>
+        </div>
+        <div class="principles">
+          <h3>NIST’s four principles of a good explanation<sup>1</sup></h3>
+          <div class="pgrid">
+            <div><b>Explanation</b><span>The system gives a reason for each output.</span></div>
+            <div><b>Meaningful</b><span>The intended user can follow the reason.</span></div>
+            <div><b>Explanation accuracy</b><span>The reason reflects the system’s real process.</span></div>
+            <div><b>Knowledge limits</b><span>The system flags cases outside its design.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="stakes">
+        <h3 class="lbl">Why transparency matters: four real cases</h3>
+        <div class="sgrid">
+          <div class="stake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#24574b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>
+            <div><p class="area">Health care</p><p class="num">17.7% → 46.5%</p><p>A widely used care algorithm treated past spending as a sign of medical need. Correcting it raised the share of Black patients flagged for extra care from 17.7% to 46.5%.<sup>2</sup></p></div>
+          </div>
+          <div class="stake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#24574b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 15h4"/></svg>
+            <div><p class="area">Finance</p><p class="num">Specific reasons</p><p>U.S. lenders must state specific reasons for every credit denial. A 2022 CFPB circular applies this rule to complex algorithms.<sup>3</sup></p></div>
+          </div>
+          <div class="stake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#24574b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 21h14M6 7h12M6 7l-3 7h6zM18 7l-3 7h6z"/></svg>
+            <div><p class="area">Law</p><p class="num">$5,000 fine</p><p>In June 2023, a federal judge fined two New York lawyers and their firm. Their brief cited six court cases invented by ChatGPT.<sup>4</sup></p></div>
+          </div>
+          <div class="stake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#24574b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h7M9 16h5"/></svg>
+            <div><p class="area">Regulation</p><p class="num">€35M or 7%</p><p>The EU AI Act took effect in August 2024. Its rules for general-purpose AI began on August 2, 2025. Top fines reach €35 million or 7% of global turnover.<sup>5</sup></p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band challenges" aria-labelledby="sec-ch">
+    <p class="kicker"><i aria-hidden="true"></i>Challenges in explainability</p>
+    <h2 class="sec" id="sec-ch">Why large language models are hard to explain</h2>
+    <div class="cgrid">
+      <div class="ch"><p class="stat">405 <small>billion</small></p><h3>Model complexity</h3><p>Llama 3.1 405B spreads every answer across 405 billion parameters in 126 layers. No single part holds the reason.<sup>6</sup></p></div>
+      <div class="ch"><p class="stat">1 <small>neuron,</small> 4 <small>topics</small></p><h3>Tangled concepts</h3><p>In a small test model, one neuron fired on citations, English dialogue, web requests, and Korean text. Researchers call this superposition.<sup>7</sup></p></div>
+      <div class="ch"><p class="stat">25% <small>and</small> 39%</p><h3>Explanations after the fact</h3><p>Anthropic hid answer hints in test questions. Claude 3.7 Sonnet admitted to using the hint in 25% of cases. DeepSeek R1 admitted it in 39%.<sup>8</sup></p></div>
+      <div class="ch"><p class="stat">3 <small>to</small> 6×</p><h3>Bias in the data</h3><p>In 2023 tests, four LLMs picked gender-stereotyped jobs 3 to 6 times more often than other jobs. Many of their stated reasons were factually wrong.<sup>9</sup></p></div>
+      <div class="ch"><p class="stat">37 <small>out of 100</small></p><h3>Hidden training data</h3><p>Stanford’s 2023 transparency index scored 10 major developers. The average was 37 out of 100. The top score was 54.<sup>10</sup></p></div>
+      <div class="ch"><p class="stat"><small>No shared standard</small></p><h3>Rules ahead of methods</h3><p>The EU AI Act and U.S. lending law demand explanations. No agreed test yet defines a good explanation for an LLM.<sup>3,5</sup></p></div>
+    </div>
+  </section>
+
+  <section class="band validation" aria-labelledby="sec-val">
+    <p class="kicker"><i aria-hidden="true"></i>Validation and performance metrics</p>
+    <h2 class="sec" id="sec-val">How validation and metrics build trust</h2>
+    <p class="intro">Validation tests a model on data it never saw in training. Metrics turn each test into a number people can compare and track over time.</p>
+    <ol class="flow" aria-label="Validation steps, in order">
+      <li><b>Hold out data</b><span>Keep a test set out of training.</span></li>
+      <li><b>Benchmark</b><span>Score standard tests, such as MMLU’s 57 subjects.<sup>11</sup></span></li>
+      <li><b>Stress test</b><span>Try odd inputs, attacks, and red-team prompts.</span></li>
+      <li><b>Check the reasons</b><span>Test whether explanations match real behavior.<sup>14</sup></span></li>
+      <li><b>Monitor</b><span>Track errors and drift after launch.</span></li>
+    </ol>
+    <div class="vgrid">
+      <table class="metrics">
+        <caption>What each metric measures</caption>
+        <thead><tr><th scope="col">Metric</th><th scope="col">What it measures</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Accuracy</th><td>Share of answers that are correct.</td></tr>
+          <tr><th scope="row">Precision and recall</th><td>False alarms versus missed cases.</td></tr>
+          <tr><th scope="row">Calibration</th><td>Match between stated confidence and the real hit rate.</td></tr>
+          <tr><th scope="row">Truthfulness</th><td>Resistance to common myths and false claims.<sup>12</sup></td></tr>
+          <tr><th scope="row">Fairness</th><td>Equal results across gender, race, and age groups.</td></tr>
+          <tr><th scope="row">Faithfulness</th><td>Match between an explanation and the real cause of the output.<sup>14</sup></td></tr>
+        </tbody>
+      </table>
+      <div class="vside">
+        <div class="card">
+          <h3>The accuracy trap <span>Illustration</span></h3>
+          <div class="trap">
+            <div class="waffle" id="waffle" role="img" aria-label="Grid of 100 squares. 95 are gray for honest applications and 5 are orange for fraud."></div>
+            <div>
+              <p>Picture 100 loan applications with 5 frauds. A model that never flags fraud still scores 95% accuracy. It catches none of the 5.</p>
+              <div class="big"><div>95%<span>Accuracy</span></div><div style="color:var(--amber)">0%<span>Recall</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Truthfulness on TruthfulQA <span>817 questions, 2021</span><sup>12</sup></h3>
+          <div class="bars" role="img" aria-label="Humans answered truthfully 94 percent of the time. The best model tested, GPT-3, answered truthfully 58 percent of the time.">
+            <span>Humans</span><span class="tr"><i class="h" style="width:94%"></i></span><b>94%</b>
+            <span>Best model (GPT-3)</span><span class="tr"><i style="width:58%"></i></span><b>58%</b>
+          </div>
+        </div>
+        <div class="card">
+          <h3>One model, seven measures <span>Stanford HELM</span><sup>13</sup></h3>
+          <div class="chips"><span>Accuracy</span><span>Calibration</span><span>Robustness</span><span>Fairness</span><span>Bias</span><span>Toxicity</span><span>Speed and cost</span></div>
+          <p class="note">A single score hides tradeoffs. HELM reports all seven side by side.</p>
+        </div>
+      </div>
+    </div>
+    <p class="leak" style="margin-top:18px"><b>Watch for leaks.</b><span>A benchmark score means little if the test questions appeared in the training data. Fresh, private test sets give a truer read.</span></p>
+  </section>
+
+  <section class="band labs-band" aria-labelledby="sec-labs">
+    <p class="kicker"><i aria-hidden="true"></i>Current techniques</p>
+    <h2 class="sec" id="sec-labs">What leading AI labs are doing</h2>
+    <div class="lgrid">
+      <div class="lab"><h3>OpenAI</h3><ul>
+        <li><b>2023</b> GPT-4 wrote explanations for all 307,200 neurons in GPT-2. About 1,000 scored 0.8 or higher.<sup>17</sup></li>
+        <li><b>2024</b> A sparse autoencoder found 16 million features inside GPT-4.<sup>18</sup></li>
+        <li>Its o-series reasoning models show summaries of their thinking.</li>
+      </ul></div>
+      <div class="lab"><h3>Anthropic</h3><ul>
+        <li><b>2024</b> Mapped 34 million features in Claude 3 Sonnet, including one for the Golden Gate Bridge.<sup>19</sup></li>
+        <li><b>2025</b> Circuit tracing showed Claude 3.5 Haiku planning a rhyme before writing the line.<sup>20</sup></li>
+        <li><b>2025</b> Released its tracing tools as open source.<sup>21</sup></li>
+      </ul></div>
+      <div class="lab"><h3>Google DeepMind</h3><ul>
+        <li><b>2024</b> Gemma Scope released over 400 open sparse autoencoders for Gemma 2.<sup>22</sup></li>
+        <li>The Learning Interpretability Tool shows attention and word-importance views.<sup>23</sup></li>
+        <li>Google researchers introduced model cards in 2019.<sup>24</sup></li>
+      </ul></div>
+      <div class="lab"><h3>Meta</h3><ul>
+        <li>Open Llama weights let outside teams inspect model internals.<sup>6</sup></li>
+        <li>The Captum library scores how much each input word drove an output.<sup>25</sup></li>
+        <li>Llama model cards list training data size, GPU hours, and emissions.<sup>27</sup></li>
+      </ul></div>
+    </div>
+    <p class="joint"><b>A shared warning.</b> In July 2025, 41 researchers from OpenAI, Anthropic, Google DeepMind, and other groups asked labs to keep model reasoning readable and monitored.<sup>26</sup></p>
+    <div class="scroll">
+    <table class="tech">
+      <caption>Seven techniques at a glance</caption>
+      <colgroup><col><col class="c2"><col></colgroup>
+      <thead><tr><th scope="col">Technique</th><th scope="col">What it shows</th><th scope="col">Watch out for</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Attention maps</th><td>Which input words the model weighed most.<sup>23</sup></td><td>Attention weights often disagree with other importance tests.<sup>15</sup></td></tr>
+        <tr><th scope="row">Probing</th><td>Whether a concept, such as sentiment, is stored inside the network.</td><td>A probe finds a signal. It does not prove the model uses it.</td></tr>
+        <tr><th scope="row">Feature dictionaries</th><td>Readable concepts pulled apart from tangled neurons.<sup>18,19,22</sup></td><td>Many features stay hard to name. Coverage is partial.</td></tr>
+        <tr><th scope="row">Circuit tracing</th><td>The chain of features behind one specific answer.<sup>20</sup></td><td>Even on short prompts, it captures only part of the computation.<sup>20</sup></td></tr>
+        <tr><th scope="row">Chain-of-thought prompting</th><td>Step-by-step reasoning in plain words. PaLM’s math score rose from 17.9% to 56.9%.<sup>16</sup></td><td>Written steps do not always match the real cause.<sup>8</sup></td></tr>
+        <tr><th scope="row">Attribution scores</th><td>How much each input word moved the output.<sup>25</sup></td><td>Different methods give different scores.</td></tr>
+        <tr><th scope="row">Model and system cards</th><td>Training data, test results, and known limits.<sup>24</sup></td><td>Developers choose what to disclose.<sup>10</sup></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div>
+      <p class="tag">Metrics show <em>what</em> a model does. Explanations show <em>why</em>. Trust needs both.</p>
+      <p class="snap">Each figure describes the models tested at the time of the study, from 2019 to 2025. The accuracy trap is an illustration, not real data.</p>
+    </div>
+    <p class="src"><b>Sources:</b> 1 NIST 2021 · 2 Obermeyer et al. 2019 · 3 CFPB 2022 · 4 Mata v. Avianca 2023 · 5 EU AI Act 2024 · 6 Llama Team 2024 · 7 Bricken et al. 2023 · 8 Chen et al. 2025 · 9 Kotek et al. 2023 · 10 Bommasani et al. 2023 · 11 Hendrycks et al. 2021 · 12 Lin et al. 2022 · 13 Liang et al. 2022 · 14 DeYoung et al. 2020 · 15 Jain and Wallace 2019 · 16 Wei et al. 2022 · 17 Bills et al. 2023 · 18 Gao et al. 2024 · 19 Templeton et al. 2024 · 20 Lindsey et al. 2025 · 21 Anthropic 2025 · 22 Lieberum et al. 2024 · 23 Tenney et al. 2020 · 24 Mitchell et al. 2019 · 25 Miglani et al. 2023 · 26 Korbak et al. 2025 · 27 Meta 2024. Full references are in the explanatory document.</p>
+  </footer>
+
+</article>
+</main>
+<p class="hint">This page reflows on phones. <a href="xai-explanation.html">Read the explanatory document</a> for the summary, key considerations, design rationale, and full references.</p>
+
+<script>
+(function(){
+  if(new URLSearchParams(location.search).has('capture'))document.body.classList.add('capture');
+  var w=document.getElementById('waffle'),html='';
+  for(var i=0;i<100;i++)html+='<i'+(i>=95?' class="f"':'')+'></i>';
+  w.innerHTML=html;
+})();
+</script>
+</body>
+</html>

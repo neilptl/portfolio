@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Explanatory document for Neil Patel's explainable AI infographic: summary, key considerations, design rationale, and references.">
+<meta name="theme-color" content="#143c35">
+<title>Explainable AI Explanation | Neil Patel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap">
+<style>
+:root{--paper:#f8f7f2;--ink:#183a34;--muted:#4d5f57;--line:#d6ddd3;--green:#143c35;--soft:#eef2e4;--font:'DM Sans',system-ui,sans-serif;--display:'Manrope',system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.6 var(--font)}
+a{color:inherit;text-underline-offset:3px}
+a:focus-visible{outline:3px solid #97620b;outline-offset:3px}
+.back{display:block;max-width:760px;margin:0 auto;padding:24px 24px 0;font-size:13px;font-weight:700}
+main{max-width:760px;margin:0 auto;padding:20px 24px 56px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;margin:0 0 12px;color:var(--muted)}
+h1,h2{font-family:var(--display);letter-spacing:-.03em;line-height:1.2}
+h1{font-size:32px;font-weight:600;margin:0 0 8px}
+h2{font-size:18px;margin:28px 0 8px;padding-top:18px;border-top:1px solid var(--line)}
+p{margin:0 0 12px}
+ul{margin:0 0 12px;padding-left:20px}
+li{margin-bottom:7px}
+.meta{color:var(--muted);font-size:13px}
+.lead p{font-size:15.5px}
+figure{margin:20px 0 8px}
+figure a{display:block;border:1px solid var(--line);border-radius:6px;overflow:hidden;box-shadow:0 10px 26px #183a3414;background:#fff}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-size:12.5px;color:var(--muted);margin-top:10px}
+.refs{font-size:12.5px;color:var(--muted);padding-left:24px;margin:0}
+.refs li{margin-bottom:5px;overflow-wrap:anywhere}
+.note{background:var(--soft);padding:12px 16px;font-size:13.5px}
+@page{size:letter;margin:.65in .75in}
+@media print{
+  body{background:#fff;font-size:10.4pt;line-height:1.42}
+  .back{display:none}
+  main{max-width:none;padding:0}
+  h1{font-size:22pt}
+  h2{font-size:12.5pt;margin:13pt 0 5pt;padding-top:9pt;break-after:avoid}
+  li{margin-bottom:3.5pt}
+  p,ul{margin-bottom:6pt}
+  figure{break-before:page;break-inside:avoid;margin:0}
+  figure a{box-shadow:none;border:0;width:3.1in;margin:0 auto}
+  .refs{font-size:8.6pt;line-height:1.32}.refs li{margin-bottom:2.5pt;break-inside:avoid}
+  .note{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<a class="back" href="index.html#xai-artifact">← Back to portfolio</a>
+<main>
+<p class="eyebrow">Explanatory document · Portfolio artifact 04</p>
+<h1>Explainable AI: trust needs the score and the reason</h1>
+<p class="meta">Neil Patel · AIML-501 Model Development · Indiana Wesleyan University · November 2026<br>Accompanies the <a href="xai-explainability.html">infographic</a> (<a href="XAI-Explainability.pdf">PDF</a>, <a href="XAI-Explainability.png">PNG</a>).</p>
+
+<h2>Summary</h2>
+<div class="lead">
+<p>This infographic explains explainable AI (XAI) for readers without a technical background. XAI gives people the reasons behind a model’s answer. The stakes are real. A widely used health care algorithm under-flagged Black patients for extra care [2]. Two New York lawyers paid a $5,000 fine for citing court cases that ChatGPT invented [4]. Large language models resist explanation for clear reasons. Llama 3.1 405B spreads each answer across 405 billion parameters [6]. Single neurons mix unrelated concepts [7]. Written reasoning often hides the real cause: Claude 3.7 Sonnet admitted to using a planted hint in only 25% of cases [8]. Validation and metrics fill part of this gap. Held-out tests, benchmarks, and stress tests show what a model does and how often it is right. Recall, calibration, and faithfulness catch problems that a single accuracy score hides. Labs now work on the other half of the problem. Anthropic, OpenAI, and Google DeepMind have mapped millions of readable features inside their models [18, 19, 22]. Meta’s open Llama weights let outside researchers study a large model directly. Trust comes from both halves together. Metrics prove a model works. Explanations show it works for the right reasons.</p>
+<p>The design follows one idea: trust needs the score and the reason. The header diagram shows this idea first. A prompt enters a dark box, and two labels point to the two kinds of evidence. The four sections then follow the order a newcomer asks about the topic. They cover what XAI is, why it is hard, how teams test models, and what labs do today. Each section has its own color. Green marks definitions and techniques, orange marks problems, and blue marks validation. Every claim carries a number, a date, or a named model, and a source number links it to the reference list. Large figures sit at the top of each card, so a reader can scan the page in about a minute. The accuracy-trap grid turns an abstract metric problem into 100 squares a reader can count. The topic matters to any team that deploys AI. Lenders, hospitals, and courts now ask for reasons, not just results. This artifact shows my skills in AI evaluation, source review, and visual communication. It complements the method comparison, network experiments, and cost analysis in my earlier artifacts.</p>
+</div>
+
+<figure>
+<a href="xai-explainability.html"><img src="XAI-Explainability.png" width="2400" height="7038" alt="The full infographic, titled Explainable AI: trust needs the score and the reason. A header diagram shows a prompt entering a dark LLM box and an answer coming out, with explainability pointing into the box and validation pointing at the answer. Four sections follow. The first defines XAI, lists NIST's four principles, and gives four real cases from health care, finance, law, and regulation. The second shows six challenges with large figures, such as 405 billion parameters and 25 percent hint admission. The third shows five validation steps, a metric table, a 100-square accuracy-trap grid, TruthfulQA bars, and HELM's seven measures. The fourth shows cards for OpenAI, Anthropic, Google DeepMind, and Meta and a table of seven techniques with their limits."></a>
+<figcaption>The full infographic. Select it to open the interactive web version.</figcaption>
+</figure>
+
+<h2>Key considerations</h2>
+<ul>
+<li><strong>Figures are snapshots.</strong> Each number describes the models in its study. The hint test covered Claude 3.7 Sonnet and DeepSeek R1 in 2025 [8]. The TruthfulQA scores date from 2021 [12]. Newer models score differently on many of these tests.</li>
+<li><strong>The accuracy trap is an illustration.</strong> The grid uses round numbers to teach one idea. It does not describe a real lender.</li>
+<li><strong>Interpretability is early work.</strong> Feature maps cover only part of each model [18, 19]. Anthropic notes that circuit tracing captures only a fraction of the computation, even on short prompts [20]. The infographic presents these methods as progress, not proof.</li>
+<li><strong>Some details need context.</strong> The 307,200 neurons belong to GPT-2 XL, the largest GPT-2 model [17]. The EU AI Act’s €35 million fine applies to the most serious violations [5]. The CFPB circular dates from May 2022 [3].</li>
+<li><strong>One tile is my judgment.</strong> The “Rules ahead of methods” tile reflects my reading of current law and research. No single source states it.</li>
+</ul>
+
+<h2>Format and accessibility</h2>
+<ul>
+<li>The web version uses real HTML tables and headings, so screen readers can follow it.</li>
+<li>Every chart carries a text label. Color is never the only cue.</li>
+<li>The layout reflows to one column on phones.</li>
+<li>The PDF prints as one tall page, and the PNG renders at 2400 pixels wide.</li>
+</ul>
+
+<p class="note"><strong>Currency of data.</strong> Sources were checked November 14, 2026. The newest study cited dates from July 2025.</p>
+
+<h2>References</h2>
+<ol class="refs">
+<li>Phillips, P. J., et al. (2021). <a href="https://doi.org/10.6028/NIST.IR.8312">Four principles of explainable artificial intelligence</a> (NIST IR 8312). National Institute of Standards and Technology.</li>
+<li>Obermeyer, Z., Powers, B., Vogeli, C., &amp; Mullainathan, S. (2019). <a href="https://doi.org/10.1126/science.aax2342">Dissecting racial bias in an algorithm used to manage the health of populations</a>. <i>Science, 366</i>(6464), 447–453.</li>
+<li>Consumer Financial Protection Bureau. (2022). <a href="https://www.consumerfinance.gov/compliance/circulars/circular-2022-03-adverse-action-notification-requirements-in-connection-with-credit-decisions-based-on-complex-algorithms/">Circular 2022-03: Adverse action notification requirements in connection with credit decisions based on complex algorithms</a>.</li>
+<li><i>Mata v. Avianca, Inc.</i>, 678 F. Supp. 3d 443 (S.D.N.Y. 2023). Summary: American Bar Association, <a href="https://www.americanbar.org/groups/litigation/resources/litigation-news/2023/use-chatgpt-research-bogus-cases-sanctions/">Use of ChatGPT for research leads to sanctions for bogus cases</a>.</li>
+<li>European Union. (2024). <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">Regulation (EU) 2024/1689 (Artificial Intelligence Act)</a>. <i>Official Journal of the European Union</i>.</li>
+<li>Llama Team, AI @ Meta. (2024). <a href="https://arxiv.org/abs/2407.21783">The Llama 3 herd of models</a>. arXiv.</li>
+<li>Bricken, T., et al. (2023). <a href="https://transformer-circuits.pub/2023/monosemantic-features">Towards monosemanticity: Decomposing language models with dictionary learning</a>. Transformer Circuits Thread.</li>
+<li>Chen, Y., et al. (2025). <a href="https://arxiv.org/abs/2505.05410">Reasoning models don’t always say what they think</a>. Anthropic. arXiv.</li>
+<li>Kotek, H., Dockum, R., &amp; Sun, D. Q. (2023). <a href="https://arxiv.org/abs/2308.14921">Gender bias and stereotypes in large language models</a>. ACM Collective Intelligence Conference.</li>
+<li>Bommasani, R., et al. (2023). <a href="https://arxiv.org/abs/2310.12941">The Foundation Model Transparency Index</a>. Stanford CRFM. arXiv.</li>
+<li>Hendrycks, D., et al. (2021). <a href="https://arxiv.org/abs/2009.03300">Measuring massive multitask language understanding</a>. ICLR.</li>
+<li>Lin, S., Hilton, J., &amp; Evans, O. (2022). <a href="https://arxiv.org/abs/2109.07958">TruthfulQA: Measuring how models mimic human falsehoods</a>. ACL.</li>
+<li>Liang, P., et al. (2022). <a href="https://arxiv.org/abs/2211.09110">Holistic evaluation of language models</a>. Stanford CRFM. arXiv.</li>
+<li>DeYoung, J., et al. (2020). <a href="https://arxiv.org/abs/1911.03429">ERASER: A benchmark to evaluate rationalized NLP models</a>. ACL.</li>
+<li>Jain, S., &amp; Wallace, B. C. (2019). <a href="https://arxiv.org/abs/1902.10186">Attention is not explanation</a>. NAACL.</li>
+<li>Wei, J., et al. (2022). <a href="https://arxiv.org/abs/2201.11903">Chain-of-thought prompting elicits reasoning in large language models</a>. NeurIPS.</li>
+<li>Bills, S., et al. (2023). <a href="https://openai.com/index/language-models-can-explain-neurons-in-language-models/">Language models can explain neurons in language models</a>. OpenAI.</li>
+<li>Gao, L., et al. (2024). <a href="https://arxiv.org/abs/2406.04093">Scaling and evaluating sparse autoencoders</a>. OpenAI. arXiv.</li>
+<li>Templeton, A., et al. (2024). <a href="https://transformer-circuits.pub/2024/scaling-monosemanticity/">Scaling monosemanticity: Extracting interpretable features from Claude 3 Sonnet</a>. Transformer Circuits Thread.</li>
+<li>Lindsey, J., et al. (2025). <a href="https://transformer-circuits.pub/2025/attribution-graphs/biology.html">On the biology of a large language model</a>. Transformer Circuits Thread. Summary: Anthropic, <a href="https://www.anthropic.com/research/tracing-thoughts-language-model">Tracing the thoughts of a large language model</a>.</li>
+<li>Anthropic. (2025). <a href="https://www.anthropic.com/research/open-source-circuit-tracing">Open-sourcing circuit tracing tools</a>.</li>
+<li>Lieberum, T., et al. (2024). <a href="https://arxiv.org/abs/2408.05147">Gemma Scope: Open sparse autoencoders everywhere all at once on Gemma 2</a>. Google DeepMind. arXiv.</li>
+<li>Tenney, I., et al. (2020). <a href="https://arxiv.org/abs/2008.05122">The Language Interpretability Tool: Extensible, interactive visualizations and analysis for NLP models</a>. Google Research. arXiv.</li>
+<li>Mitchell, M., et al. (2019). <a href="https://arxiv.org/abs/1810.03993">Model cards for model reporting</a>. FAT* Conference.</li>
+<li>Miglani, V., et al. (2023). <a href="https://arxiv.org/abs/2312.05491">Using Captum to explain generative language models</a>. Meta AI. NLP-OSS Workshop.</li>
+<li>Korbak, T., et al. (2025). <a href="https://arxiv.org/abs/2507.11473">Chain of thought monitorability: A new and fragile opportunity for AI safety</a>. arXiv.</li>
+<li>Meta. (2024). <a href="https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md">Llama 3.1 model card</a>. GitHub.</li>
+</ol>
+</main>
+</body>
+</html>
