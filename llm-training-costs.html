@@ -33,7 +33,7 @@ h1,h2,h3,p,ul,ol{margin:0}
 /* slide frame */
 .slide{position:relative;container-type:inline-size;aspect-ratio:16/9;background:var(--paper);border-radius:6px;box-shadow:0 1px 0 var(--line),0 14px 30px #183a3414;overflow:hidden}
 .si{position:absolute;inset:0;padding:calc(var(--u)*1.9) calc(var(--u)*2.7) calc(var(--u)*1.3);display:flex;flex-direction:column;gap:calc(var(--u)*1.05);font-size:calc(var(--u)*1.05)}
-.s-top{display:flex;justify-content:space-between;align-items:center;font-size:calc(var(--u)*.86);font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.s-top{display:flex;justify-content:space-between;align-items:center;font-size:calc(var(--u)*.98);font-weight:700;letter-spacing:.02em}
 .s-top span:last-child{color:var(--muted);letter-spacing:.06em;text-transform:none;font-weight:500}
 .s-title{font-family:var(--display);font-weight:600;font-size:calc(var(--u)*3.05);line-height:1.1;letter-spacing:-.045em;margin-top:calc(var(--u)*.55)}
 .s-title em{font-family:Georgia,serif;font-weight:400;letter-spacing:-.04em;color:#2f6a57}
@@ -182,15 +182,15 @@ body.capture .slide{border-radius:0;box-shadow:none}
       <colgroup><col class="lab"><col span="8"></colgroup>
       <thead>
         <tr>
-          <td><p class="rate-note"><b>Resource use</b><br>Author’s rating; three bars = heaviest use</p></td>
-          <th scope="col" class="first"><div class="chev"><span>1</span>Collect</div><span class="desc">Crawl the web; license books, code, and articles.</span></th>
-          <th scope="col"><div class="chev"><span>2</span>Clean</div><span class="desc">Remove junk and private data; split text into tokens.</span></th>
-          <th scope="col"><div class="chev"><span>3</span>Design</div><span class="desc">Choose an architecture; run smaller experiments.</span></th>
-          <th scope="col" class="hot"><div class="chev"><span>4</span>Pretrain</div><span class="desc">Predict the next token across trillions of tokens, for weeks.</span></th>
+          <td><p class="rate-note"><b>Resource use</b><br>Author’s rating. Three bars = heaviest use</p></td>
+          <th scope="col" class="first"><div class="chev"><span>1</span>Collect</div><span class="desc">Crawl the web and license books, code, and articles.</span></th>
+          <th scope="col"><div class="chev"><span>2</span>Clean</div><span class="desc">Remove junk and private data. Split text into tokens.</span></th>
+          <th scope="col"><div class="chev"><span>3</span>Design</div><span class="desc">Choose an architecture. Run smaller experiments.</span></th>
+          <th scope="col" class="hot"><div class="chev"><span>4</span>Pretrain</div><span class="desc">Predict the next token. Repeat for weeks on trillions.</span></th>
           <th scope="col"><div class="chev"><span>5</span>Evaluate</div><span class="desc">Score against benchmarks and past runs.</span></th>
           <th scope="col"><div class="chev"><span>6</span>Fine-tune</div><span class="desc">Learn from human examples and rankings.</span></th>
-          <th scope="col"><div class="chev"><span>7</span>Safety test</div><span class="desc">Red-team for harmful output; fix what turns up.</span></th>
-          <th scope="col"><div class="chev"><span>8</span>Deploy</div><span class="desc">Optimize and monitor; serving costs begin.</span></th>
+          <th scope="col"><div class="chev"><span>7</span>Safety test</div><span class="desc">Red-team for harmful output. Fix each problem.</span></th>
+          <th scope="col"><div class="chev"><span>8</span>Deploy</div><span class="desc">Ship and monitor the model. Serving costs begin.</span></th>
         </tr>
       </thead>
       <tbody>
@@ -198,7 +198,7 @@ body.capture .slide{border-radius:0;box-shadow:none}
         <tr><th scope="row">Compute</th><td class="m1"><span class="sr">Low</span></td><td class="m1"><span class="sr">Low</span></td><td class="m2"><span class="sr">Medium</span></td><td class="m3"><span class="sr">High</span></td><td class="m1"><span class="sr">Low</span></td><td class="m2"><span class="sr">Medium</span></td><td class="m1"><span class="sr">Low</span></td><td class="m2"><span class="sr">Medium</span></td></tr>
         <tr><th scope="row">Energy</th><td class="m0"><span class="sr">None</span></td><td class="m1"><span class="sr">Low</span></td><td class="m2"><span class="sr">Medium</span></td><td class="m3"><span class="sr">High</span></td><td class="m1"><span class="sr">Low</span></td><td class="m2"><span class="sr">Medium</span></td><td class="m1"><span class="sr">Low</span></td><td class="m2"><span class="sr">Medium</span></td></tr>
         <tr><th scope="row">People &amp; time</th><td class="m2"><span class="sr">Medium</span></td><td class="m2"><span class="sr">Medium</span></td><td class="m3"><span class="sr">High</span></td><td class="m2"><span class="sr">Medium</span></td><td class="m2"><span class="sr">Medium</span></td><td class="m3"><span class="sr">High</span></td><td class="m3"><span class="sr">High</span></td><td class="m2"><span class="sr">Medium</span></td></tr>
-        <tr class="lp"><th></th><td colspan="2"></td><td colspan="5"><div class="loopbox"><span><b>↻ Stages 3–7 repeat.</b> Total compute is 1.2–4× the final run;<sup>1</sup> OpenAI’s 2024 final runs: ~10% of R&amp;D compute.<sup>4</sup></span></div></td><td></td></tr>
+        <tr class="lp"><th></th><td colspan="2"></td><td colspan="5"><div class="loopbox"><span><b>↻ Stages 3–7 repeat.</b> Total compute is 1.2–4× the final run.<sup>1</sup> OpenAI’s 2024 final runs: ~10% of R&amp;D compute.<sup>4</sup></span></div></td><td></td></tr>
       </tbody>
     </table>
     </div>
@@ -209,7 +209,7 @@ body.capture .slide{border-radius:0;box-shadow:none}
         <div class="rlist">
           <div class="rrow">
             <svg viewBox="0 0 24 24" fill="none" stroke="#24574b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h7M9 16h7"/></svg>
-            <div><h3>Data</h3><p>Coverage and quality limit what a model can learn. Llama 3.1: 15T+ tokens.<sup>10</sup></p></div>
+            <div><h3>Data</h3><p>Coverage and quality limit model knowledge. Llama 3.1: 15T+ tokens.<sup>10</sup></p></div>
             <div class="share"><b class="na">Not itemized in these estimates</b></div>
           </div>
           <div class="rrow">
@@ -262,17 +262,17 @@ body.capture .slide{border-radius:0;box-shadow:none}
             </tr>
             <tr>
               <th scope="row">Llama 3.1 405B<small>Meta · 2024</small></th>
-              <td>15.6T tokens<sup>9</sup></td><td>Up to 16K H100s; <span style="white-space:nowrap">30.8M GPU-hours<sup>9,10</sup></span></td><td>~21.6 GWh (GPUs only)<sup>10</sup></td><td>54+ days of pretraining<sup>9</sup></td>
+              <td>15.6T tokens<sup>9</sup></td><td>Up to 16K H100s, <span style="white-space:nowrap">30.8M GPU-hours<sup>9,10</sup></span></td><td>~21.6 GWh (GPUs only)<sup>10</sup></td><td>54+ days of pretraining<sup>9</sup></td>
               <td class="cost"><b>$170M<sup>3</sup></b><span class="axis" title="Llama 3.1 405B: about $170 million, cloud-rental estimate"><span class="tk" style="left:33.33%"></span><span class="tk" style="left:66.67%"></span><i class="mk cloud" style="left:74.3%"></i></span></td>
             </tr>
             <tr>
               <th scope="row">Claude 3.5 Sonnet<small>Anthropic · 2024</small></th>
               <td class="nd">Not disclosed</td><td class="nd">Not disclosed</td><td class="nd">Not disclosed</td><td class="nd">Not disclosed</td>
-              <td class="cost"><b>“A few $10M’s”<sup>12</sup></b><span class="axis" title="Claude 3.5 Sonnet: a few tens of millions of dollars, per the Anthropic CEO; exact figure not given"><span class="tk" style="left:33.33%"></span><span class="tk" style="left:66.67%"></span><span class="band" style="left:43.4%;width:21.7%"></span></span></td>
+              <td class="cost"><b>“A few $10M’s”<sup>12</sup></b><span class="axis" title="Claude 3.5 Sonnet: a few tens of millions of dollars, per the Anthropic CEO, with no exact figure"><span class="tk" style="left:33.33%"></span><span class="tk" style="left:66.67%"></span><span class="band" style="left:43.4%;width:21.7%"></span></span></td>
             </tr>
             <tr>
               <th scope="row">DeepSeek-V3<small>DeepSeek · 2024</small></th>
-              <td>14.8T tokens<sup>13</sup></td><td>2,048 H800s; 2.8M GPU-hours<sup>13</sup></td><td class="nd">Not disclosed</td><td>Under 2 months of pretraining<sup>13</sup></td>
+              <td>14.8T tokens<sup>13</sup></td><td>2,048 H800s, 2.8M GPU-hours<sup>13</sup></td><td class="nd">Not disclosed</td><td>Under 2 months of pretraining<sup>13</sup></td>
               <td class="cost"><b>$5.6M <span>· final run only<sup>13</sup></span></b><span class="axis" title="DeepSeek-V3: $5.576 million for the final run at an assumed $2 per GPU-hour, excluding prior research"><span class="tk" style="left:33.33%"></span><span class="tk" style="left:66.67%"></span><i class="mk said" style="left:24.9%"></i></span></td>
             </tr>
           </tbody>
@@ -282,7 +282,7 @@ body.capture .slide{border-radius:0;box-shadow:none}
     </div>
 
     <footer class="foot">
-      <p><b>Read costs as ranges.</b> Estimates use different methods, usually cover only compute for one run, and are not audited. ~21.6 GWh = 30.84M GPU-hours × 700 W.</p>
+      <p><b>Read costs as ranges.</b> Estimates use different methods. Most cover compute for one run. None are audited. ~21.6 GWh = 30.84M GPU-hours × 700 W.</p>
       <p><b>Sources:</b> 1 Cottier et al. 2024 · 2 AI Index 2024 · 3 AI Index 2025 · 4 Epoch AI 2025 · 5 Patterson et al. 2021 · 6 Brown et al. 2020 · 7 OpenAI 2023 · 8 TechSpot 2023 · 9 Meta 2024 · 10 Llama 3.1 model card · 11 Touvron et al. 2023 · 12 Amodei 2025 · 13 DeepSeek-AI 2024. Full references: explanatory document.</p>
     </footer>
 

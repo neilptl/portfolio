@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A one-slide decision matrix by Neil Patel comparing eleven pre-trained models across language, vision, and tabular data on size, accuracy, speed, and explainability, with speed measured on one desktop CPU.">
+<meta name="theme-color" content="#143c35">
+<title>Choosing a Pre-Trained Model | Neil Patel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap">
+<style>
+:root{--paper:#f8f7f2;--ink:#183a34;--muted:#596a62;--line:#d6ddd3;--green:#143c35;--green-2:#24574b;--accent:#d6e997;--soft:#eef2e4;--white:#fff;--r3:#24574b;--r2:#8aa65c;--r1:#c96f12;--track:#e2e6da;--font:'DM Sans',system-ui,sans-serif;--display:'Manrope',system-ui,sans-serif;--u:1cqw}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#e9ebe3;color:var(--ink);font-family:var(--font);line-height:1.5}
+a{color:inherit;text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid #97620b;outline-offset:3px}
+h1,h2,h3,p,ul,ol{margin:0}
+.skip-link{position:absolute;left:16px;top:-100px;padding:10px 18px;background:var(--green);color:#fff;z-index:10}.skip-link:focus{top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* page chrome */
+.deck-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 32px;background:rgba(248,247,242,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);font-size:13px}
+.deck-bar .back{font-weight:700;text-decoration:none;white-space:nowrap}.deck-bar .back:hover{text-decoration:underline}
+.deck-bar .deck-title{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.deck-actions{display:flex;gap:10px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:4px;border:1px solid var(--green);background:var(--green);color:#fff;font:600 12px var(--font);text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--green-2)}
+.btn.ghost{background:transparent;color:var(--ink)}.btn.ghost:hover{background:var(--soft)}
+.deck{max-width:1480px;margin:0 auto;padding:24px 24px 36px}
+.deck-hint{max-width:1480px;margin:0 auto;padding:0 24px 48px;font-size:13px;color:var(--muted)}
+
+/* slide frame */
+.slide{position:relative;container-type:inline-size;aspect-ratio:16/9;background:var(--paper);border-radius:6px;box-shadow:0 1px 0 var(--line),0 14px 30px #183a3414;overflow:hidden}
+.si{position:absolute;inset:0;padding:calc(var(--u)*1.7) calc(var(--u)*2.5) calc(var(--u)*1.2);display:flex;flex-direction:column;gap:calc(var(--u)*.95);font-size:calc(var(--u)*.98)}
+.s-top{display:flex;justify-content:space-between;align-items:center;font-size:calc(var(--u)*.95);font-weight:700;letter-spacing:.02em}
+.s-top span:last-child{color:var(--muted);font-weight:500;letter-spacing:.04em}
+.s-head{display:grid;grid-template-columns:minmax(0,1fr) calc(var(--u)*41);gap:calc(var(--u)*2.4);align-items:end;margin-top:calc(var(--u)*.5)}
+.s-title{font-family:var(--display);font-weight:600;font-size:calc(var(--u)*2.45);line-height:1.1;letter-spacing:-.045em}
+.s-title em{font-family:Georgia,serif;font-weight:400;letter-spacing:-.04em;color:#2f6a57}
+.s-sub{color:var(--muted);font-size:calc(var(--u)*1.12);line-height:1.35;margin-top:calc(var(--u)*.5)}
+sup{font-size:.68em;line-height:0;color:var(--muted);font-weight:600;letter-spacing:0;margin-left:.1em}
+
+/* stat callouts */
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(var(--u)*.7)}
+.stat{background:var(--white);border:1px solid var(--line);border-top:calc(var(--u)*.26) solid var(--green-2);border-radius:calc(var(--u)*.35);padding:calc(var(--u)*.55) calc(var(--u)*.75) calc(var(--u)*.6)}
+.stat b{display:block;white-space:nowrap;font-family:var(--display);font-size:calc(var(--u)*1.2);letter-spacing:-.035em;line-height:1.1}
+.stat b span{color:var(--r1)}
+.stat p{font-size:calc(var(--u)*.9);line-height:1.28;color:var(--muted);margin-top:calc(var(--u)*.3)}
+.stat p strong{color:var(--ink);font-weight:600}
+
+/* matrix */
+.mx-wrap{flex:1;min-height:0;display:flex}
+.mx{flex:1;width:100%;border-collapse:collapse;table-layout:fixed;background:var(--white);border:1px solid var(--line);font-size:calc(var(--u)*.95);line-height:1.22}
+.mx th,.mx td{padding:0 calc(var(--u)*.6);text-align:left;vertical-align:middle;border-top:1px solid var(--line)}
+.mx thead th{background:var(--green);color:#fff;height:calc(var(--u)*2.75);border-top:0;font-family:var(--display);font-size:calc(var(--u)*1.02);font-weight:700;letter-spacing:-.01em;line-height:1.15}
+.mx thead th small{display:block;font:400 calc(var(--u)*.8) var(--font);letter-spacing:0;color:#c9d9cf;margin-top:calc(var(--u)*.1)}
+.mx thead th svg{width:calc(var(--u)*1.05);height:calc(var(--u)*1.05);vertical-align:-.18em;margin-right:calc(var(--u)*.3)}
+.mx col.c-dom{width:calc(var(--u)*2.5)}.mx col.c-mod{width:calc(var(--u)*11.6)}.mx col.c-cr{width:calc(var(--u)*10.6)}.mx col.c-oth{width:calc(var(--u)*17.6)}
+.mx tbody tr.grp>*{border-top:calc(var(--u)*.18) solid var(--green-2)}
+.mx tbody tr:first-child>*{border-top:0}
+.dom{background:var(--soft);padding:0!important;text-align:center!important;border-right:1px solid var(--line)}
+.dom div{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:calc(var(--u)*.5);height:100%}
+.dom svg{width:calc(var(--u)*1.35);height:calc(var(--u)*1.35);flex-shrink:0}
+.dom span{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--display);font-weight:800;font-size:calc(var(--u)*.88);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.mx tbody th.mod{font-family:var(--display);font-weight:700;font-size:calc(var(--u)*1.06);letter-spacing:-.02em;line-height:1.15}
+.mx tbody th.mod small{display:block;font:400 calc(var(--u)*.82) var(--font);letter-spacing:0;color:var(--muted);margin-top:calc(var(--u)*.1)}
+.pick{display:inline-block;margin-right:calc(var(--u)*.4);padding:calc(var(--u)*.05) calc(var(--u)*.4);border-radius:calc(var(--u)*.2);background:var(--accent);color:var(--green);font:700 calc(var(--u)*.72)/1.4 var(--font);letter-spacing:.03em;vertical-align:.12em;white-space:nowrap}
+.cr b{display:block;font-weight:600;font-size:calc(var(--u)*.95);white-space:nowrap}
+.cr b.nd{font-weight:500;font-style:italic;color:#6f7f77}
+.mt{display:flex;align-items:center;gap:calc(var(--u)*.45);margin-top:calc(var(--u)*.22);font-size:calc(var(--u)*.8);color:var(--muted);font-weight:600;letter-spacing:.01em}
+.mt i{display:block;width:calc(var(--u)*1.25);height:calc(var(--u)*.52);border-radius:calc(var(--u)*.08);background:var(--track)}
+.mt .bars{display:flex;gap:calc(var(--u)*.16)}
+.r3 i{background:var(--r3)}
+.r2 i:nth-child(-n+2){background:var(--r2)}
+.r1 i:first-child{background:var(--r1)}
+.r0 i{background:transparent;border:1px dashed #a3b0a6}
+.mx td.txt{color:var(--ink);font-size:calc(var(--u)*.9);line-height:1.27}
+.mx td.fit{font-size:calc(var(--u)*.9);line-height:1.27;font-weight:500;background:#fbfbf7}
+.mx tr.start td.fit,.mx tr.start th.mod{background:#f4f8e6}
+
+/* footer */
+.foot{display:grid;grid-template-columns:1.25fr 1fr;gap:calc(var(--u)*2);font-size:calc(var(--u)*.8);line-height:1.32;color:var(--muted)}
+.foot b{color:var(--ink);font-weight:700}
+
+/* present mode */
+.present-ui{display:none}
+body.presenting{background:#0d211d;overflow:hidden}
+body.presenting .deck-bar,body.presenting .deck-hint,body.presenting .skip-link{display:none}
+body.presenting .deck{max-width:none;padding:0}
+body.presenting .slide{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(100vw,177.78vh);border-radius:0;box-shadow:none}
+body.presenting .present-ui{display:block;position:fixed;right:16px;bottom:14px;z-index:20}
+.present-ui button{background:#1d4a41;color:#fff;border:0;border-radius:4px;padding:7px 11px;font:600 12px var(--font);cursor:pointer}
+body.capture{background:var(--paper)}
+body.capture .deck-bar,body.capture .deck-hint,body.capture .skip-link,body.capture .present-ui{display:none}
+body.capture .deck{max-width:none;padding:0}
+body.capture .slide{border-radius:0;box-shadow:none}
+
+/* small screens: stack and let the slide grow */
+@media screen and (max-width:760px){
+  :root{--u:9.5px}
+  .deck-bar{padding:12px 16px}.deck-bar .deck-title{display:none}
+  .deck-actions .btn.ghost.hide-sm{display:none}
+  .deck{padding:16px 12px 24px}.deck-hint{padding:0 16px 32px}
+  .slide{aspect-ratio:auto}
+  .si{position:relative;inset:auto;padding:20px 14px;gap:16px}
+  .s-head{grid-template-columns:minmax(0,1fr);gap:14px}
+  .s-title{font-size:26px}.s-sub{font-size:14px}
+  .s-top{flex-direction:column;align-items:flex-start;gap:4px}
+  .stats{grid-template-columns:minmax(0,1fr)}
+  .mx-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .mx{min-width:1080px}.mx tbody tr{height:64px}
+  .foot{grid-template-columns:minmax(0,1fr);gap:10px}
+}
+
+/* print / PDF: one landscape page */
+@page{size:13.333in 7.5in;margin:0}
+@media print{
+  body{background:#fff}
+  .deck-bar,.deck-hint,.present-ui,.skip-link{display:none!important}
+  .deck{max-width:none;padding:0}
+  .slide{width:13.333in;height:7.5in;aspect-ratio:auto;border-radius:0;box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .slide *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#slide">Skip to the decision matrix</a>
+<header class="deck-bar">
+  <a class="back" href="index.html#model-artifact">← Back to portfolio</a>
+  <span class="deck-title">Choosing a Pre-Trained Model · Decision matrix · Neil Patel</span>
+  <div class="deck-actions">
+    <button class="btn ghost" type="button" id="present-btn">Present ▶</button>
+    <a class="btn ghost hide-sm" href="Model-Decision-Matrix.png" download>PNG ↓</a>
+    <a class="btn" href="Model-Decision-Matrix.pdf" download>PDF ↓</a>
+  </div>
+</header>
+
+<main class="deck" id="deck">
+<section class="slide" id="slide" aria-label="Decision matrix: choosing a pre-trained model by size, accuracy, speed, and explainability">
+  <div class="si">
+
+    <header>
+      <div class="s-top"><span>Decision matrix · Portfolio artifact 05</span><span>Neil Patel</span></div>
+      <div class="s-head">
+        <div>
+          <h1 class="s-title">Bigger models buy a few points of accuracy <em>and pay in speed and explainability</em></h1>
+          <p class="s-sub">Eleven models across language, vision, and tabular data, rated on four criteria. I measured every speed I could on one desktop CPU.</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>+1.4 pts · <span>2.5× slower</span></b><p><strong>BERT-base vs DistilBERT</strong> on SST-2 sentiment</p></div>
+          <div class="stat"><b>+6.4 pts · <span>32× slower</span></b><p><strong>EfficientNet-B7 vs B0</strong> on ImageNet</p></div>
+          <div class="stat"><b>87% · 0.4 ms · 1 MB</b><p><strong>LightGBM</strong> on census income, with exact reasons</p></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="mx-wrap">
+    <table class="mx">
+      <caption class="sr">Eleven pre-trained models grouped by domain. For size, accuracy, speed, and explainability, each cell gives the measured or published value and a rating of up to three bars, where more bars are better for deployment. The last two columns give other considerations and the best-fit use case.</caption>
+      <colgroup><col class="c-dom"><col class="c-mod"><col class="c-cr"><col class="c-cr"><col class="c-cr"><col class="c-cr"><col class="c-oth"><col></colgroup>
+      <thead><tr>
+        <td></td>
+        <th scope="col">Model<small>Maker · year</small></th>
+        <th scope="col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 3 7.5 12 12l9-4.5z"/><path d="m3 12 9 4.5 9-4.5M3 16.5 12 21l9-4.5"/></svg>Size<small>Parameters · weights</small></th>
+        <th scope="col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg>Accuracy<small>Benchmark score</small></th>
+        <th scope="col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 13l3.5-3.5M10 2.5h4"/></svg>Speed<small>Median per input, 1 CPU</small></th>
+        <th scope="col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7z"/><circle cx="12" cy="12" r="3"/></svg>Explainability<small>Can you see why?</small></th>
+        <th scope="col">Other considerations<small>Integration · energy · cost</small></th>
+        <th scope="col">Best fit<small>Recommended scenario</small></th>
+      </tr></thead>
+      <tbody>
+        <!-- Language and generative AI -->
+        <tr class="grp start">
+          <th scope="rowgroup" rowspan="4" class="dom"><div><svg viewBox="0 0 24 24" fill="none" stroke="#24574b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg><span>Language · GenAI</span></div></th>
+          <th scope="row" class="mod">DistilBERT<small>Hugging Face · 2019</small></th>
+          <td class="cr"><b>67M · 268 MB</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Medium</span></td>
+          <td class="cr"><b>91.1% SST-2</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Good</span></td>
+          <td class="cr"><b>11.8 ms</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Fast</span></td>
+          <td class="cr"><b>Token attributions</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Partial</span></td>
+          <td class="txt">Runs on any CPU. Classifies text but cannot generate it.</td>
+          <td class="fit"><span class="pick">★ START HERE</span>High-volume text sorting: tickets, sentiment.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="mod">BERT-base<small>Google · 2018</small></th>
+          <td class="cr"><b>109M · 438 MB</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Medium</span></td>
+          <td class="cr"><b>92.4% SST-2</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Top</span></td>
+          <td class="cr"><b>29.6 ms</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Moderate</span></td>
+          <td class="cr"><b>Token attributions</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Partial</span></td>
+          <td class="txt">Largest library of fine-tuned versions. 2.5× DistilBERT’s latency here.</td>
+          <td class="fit">Classification where every point of accuracy counts.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="mod">Llama 3.1 8B Instruct<small>Meta · 2024 · open weights</small></th>
+          <td class="cr"><b>8B · ~16 GB</b><span class="mt r1"><span class="bars"><i></i><i></i><i></i></span>Large</span></td>
+          <td class="cr"><b>69.4% MMLU</b><span class="mt r1"><span class="bars"><i></i><i></i><i></i></span>Fair</span></td>
+          <td class="cr"><b>≤60 tokens/s, GPU*</b><span class="mt r1"><span class="bars"><i></i><i></i><i></i></span>Slow</span></td>
+          <td class="cr"><b>Open, hard to trace</b><span class="mt r1"><span class="bars"><i></i><i></i><i></i></span>Low</span></td>
+          <td class="txt">Self-host to keep data private. Needs a 16 GB+ GPU. License terms apply.</td>
+          <td class="fit">Private drafting and summaries of internal documents.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="mod">GPT-4o<small>OpenAI · 2024 · API only</small></th>
+          <td class="cr"><b class="nd">Not disclosed</b><span class="mt r0"><span class="bars"><i></i><i></i><i></i></span>Not rated</span></td>
+          <td class="cr"><b>88.7% MMLU</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Top</span></td>
+          <td class="cr"><b class="nd">Varies with API load</b><span class="mt r0"><span class="bars"><i></i><i></i><i></i></span>Not rated</span></td>
+          <td class="cr"><b>Outputs only</b><span class="mt r1"><span class="bars"><i></i><i></i><i></i></span>Low</span></td>
+          <td class="txt">No hardware. Pay per token. Data leaves your network.</td>
+          <td class="fit">Prototypes and open-ended tasks where quality outweighs control.</td>
+        </tr>
+        <!-- Computer vision -->
+        <tr class="grp">
+          <th scope="rowgroup" rowspan="4" class="dom"><div><svg viewBox="0 0 24 24" fill="none" stroke="#24574b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5V6a1 1 0 0 1 1-1h3l1.5-2h7L17 5h3a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><circle cx="12" cy="12" r="3.8"/></svg><span>Vision</span></div></th>
+          <th scope="row" class="mod">MobileNetV3-Large<small>Google · 2019</small></th>
+          <td class="cr"><b>5.5M · 22 MB</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Small</span></td>
+          <td class="cr"><b>75.3% ImageNet</b><span class="mt r1"><span class="bars"><i></i><i></i><i></i></span>Fair</span></td>
+          <td class="cr"><b>8.6 ms</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Fast</span></td>
+          <td class="cr"><b>Grad-CAM heat maps</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Partial</span></td>
+          <td class="txt">Designed for phones. 0.22 GFLOPs per image, the lowest energy here.</td>
+          <td class="fit">On-device, real-time vision: phone apps, robot cameras.</td>
+        </tr>
+        <tr class="start">
+          <th scope="row" class="mod">EfficientNet-B0<small>Google · 2019</small></th>
+          <td class="cr"><b>5.3M · 21 MB</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Small</span></td>
+          <td class="cr"><b>77.7% ImageNet</b><span class="mt r1"><span class="bars"><i></i><i></i><i></i></span>Fair</span></td>
+          <td class="cr"><b>12.0 ms</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Fast</span></td>
+          <td class="cr"><b>Grad-CAM heat maps</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Partial</span></td>
+          <td class="txt">Most accuracy per parameter. Scales up through B1–B7 as budget allows.</td>
+          <td class="fit"><span class="pick">★ START HERE</span>Fine-tuning on a small image dataset.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="mod">ResNet-50<small>Microsoft · 2015</small></th>
+          <td class="cr"><b>25.6M · 103 MB</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Medium</span></td>
+          <td class="cr"><b>80.9% ImageNet</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Good</span></td>
+          <td class="cr"><b>34.6 ms</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Moderate</span></td>
+          <td class="cr"><b>Grad-CAM heat maps</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Partial</span></td>
+          <td class="txt">Widest tool support for export and fine-tuning. 4.1 GFLOPs per image.</td>
+          <td class="fit">Server-side inspection pipelines, such as defect detection.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="mod">EfficientNet-B7<small>Google · 2019</small></th>
+          <td class="cr"><b>66.3M · 267 MB</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Medium</span></td>
+          <td class="cr"><b>84.1% ImageNet</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Top</span></td>
+          <td class="cr"><b>388 ms</b><span class="mt r1"><span class="bars"><i></i><i></i><i></i></span>Slow</span></td>
+          <td class="cr"><b>Grad-CAM heat maps</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Partial</span></td>
+          <td class="txt">600-pixel input and 37.7 GFLOPs: 98× B0’s compute for 6.4 more points.</td>
+          <td class="fit">Offline, accuracy-critical batch review, such as quality audits.</td>
+        </tr>
+        <!-- Tabular -->
+        <tr class="grp">
+          <th scope="rowgroup" rowspan="3" class="dom"><div><svg viewBox="0 0 24 24" fill="none" stroke="#24574b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18M3 14.5h18M9.5 4v16"/></svg><span>Tabular</span></div></th>
+          <th scope="row" class="mod">Random Forest<small>scikit-learn · Breiman 2001</small></th>
+          <td class="cr"><b>300 trees · 274 MB</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Medium</span></td>
+          <td class="cr"><b>86.0% · AUC .911</b><span class="mt r2"><span class="bars"><i></i><i></i><i></i></span>Good</span></td>
+          <td class="cr"><b>8.7 ms</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Fast</span></td>
+          <td class="cr"><b>Exact SHAP values</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>High</span></td>
+          <td class="txt">Few settings to tune. Fully grown trees make big files.</td>
+          <td class="fit">A quick, robust baseline when tuning time is short.</td>
+        </tr>
+        <tr>
+          <th scope="row" class="mod">XGBoost<small>Chen &amp; Guestrin · 2016</small></th>
+          <td class="cr"><b>300 trees · 0.9 MB</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Small</span></td>
+          <td class="cr"><b>87.7% · AUC .930</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Top</span></td>
+          <td class="cr"><b>0.83 ms</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Fast</span></td>
+          <td class="cr"><b>Exact SHAP values</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>High</span></td>
+          <td class="txt">Mature and widely deployed. Handles missing values. Trains on GPUs.</td>
+          <td class="fit">Regulated decisions that need reasons: credit, fraud, churn.</td>
+        </tr>
+        <tr class="start">
+          <th scope="row" class="mod">LightGBM<small>Microsoft · 2017</small></th>
+          <td class="cr"><b>300 trees · 1.0 MB</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Small</span></td>
+          <td class="cr"><b>87.4% · AUC .928</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Top</span></td>
+          <td class="cr"><b>0.36 ms</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>Fast</span></td>
+          <td class="cr"><b>Exact SHAP values</b><span class="mt r3"><span class="bars"><i></i><i></i><i></i></span>High</span></td>
+          <td class="txt">Fastest to train here (0.19 s). Built for millions of rows.</td>
+          <td class="fit"><span class="pick">★ START HERE</span>Large datasets and frequent retraining.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <footer class="foot">
+      <p><b>How to read the bars:</b> more bars = better for deployment. <b>Size</b> small &lt;50 MB, medium &lt;1 GB. <b>Accuracy</b> top = within 1 point of the best on that benchmark, good = within 5. <b>Speed</b> fast &lt;15 ms, moderate &lt;100 ms. <b>Explainability</b> high = exact reasons per prediction, partial = approximate maps, low = outputs only. <b>★ Start here</b> = the smallest model near the best.</p>
+      <p><b>Speed measured</b> on an AMD Ryzen 5 7600 CPU, one input at a time. SST-2 and census-income (OpenML Adult) accuracy: my runs. ImageNet and MMLU: published. Tabular models train on your data instead of arriving pre-trained. *Estimate: 16 GB read per token at 1 TB/s. Method and sources: portfolio page.</p>
+    </footer>
+
+  </div>
+</section>
+</main>
+<p class="deck-hint">See the <a href="index.html#model-artifact">portfolio page</a> for the process, a text version of the matrix, and references. The <a href="model-selection-assets/benchmark.py">benchmark script</a> and <a href="model-selection-assets/benchmark-results.json">raw results</a> let you rerun the speed tests.</p>
+<div class="present-ui"><button type="button" id="exit-btn">Exit (Esc)</button></div>
+
+<script>
+(function(){
+  var body=document.body;
+  if(new URLSearchParams(location.search).has('capture'))body.classList.add('capture');
+  function exit(){body.classList.remove('presenting');if(document.fullscreenElement)document.exitFullscreen();}
+  document.getElementById('present-btn').addEventListener('click',function(){
+    body.classList.add('presenting');
+    if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen().catch(function(){});
+  });
+  document.getElementById('exit-btn').addEventListener('click',exit);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')exit();});
+  document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement)body.classList.remove('presenting');});
+})();
+</script>
+</body>
+</html>

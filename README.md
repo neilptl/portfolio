@@ -5,7 +5,7 @@ A static, GitHub Pages–ready professional portfolio highlighting Neil Patel’
 ## Publish on GitHub Pages
 
 1. Create a GitHub repository (a public repository is the simplest option for free GitHub Pages hosting).
-2. Upload the **contents** of this folder to the repository root, not inside an additional `Portfolio` folder. Include `index.html`, `styles.css`, `llm-training-costs.html`, `LLM-Training-Costs.pdf`, `LLM-Training-Costs.png`, `llm-training-explanation.html`, `LLM-Training-Explanation.pdf`, `explainable-ai.html`, `Explainable-AI.pdf`, `Explainable-AI.png`, the `explainable-ai-assets/` folder, `neural-network-components.html`, `Neural-Network-Components.pdf`, the `neural-network-assets/` folder, `ML-Algorithm-Framework.pdf`, `ML-Algorithm-Framework.png`, and `.nojekyll`. Keep the deliverable filenames and capitalization unchanged.
+2. Upload the **contents** of this folder to the repository root, not inside an additional `Portfolio` folder. Include `index.html`, `styles.css`, `llm-training-costs.html`, `LLM-Training-Costs.pdf`, `LLM-Training-Costs.png`, `llm-training-explanation.html`, `LLM-Training-Explanation.pdf`, `explainable-ai.html`, `Explainable-AI.pdf`, `Explainable-AI.png`, the `explainable-ai-assets/` folder, `model-decision-matrix.html`, `Model-Decision-Matrix.pdf`, `Model-Decision-Matrix.png`, the `model-selection-assets/` folder, `neural-network-components.html`, `Neural-Network-Components.pdf`, the `neural-network-assets/` folder, `ML-Algorithm-Framework.pdf`, `ML-Algorithm-Framework.png`, and `.nojekyll`. Keep the deliverable filenames and capitalization unchanged.
 3. In the repository, open **Settings → Pages**.
 4. Under **Build and deployment**, choose **Deploy from a branch**.
 5. Select the branch containing your files (usually `main`) and the **/ (root)** folder, then select **Save**.
@@ -32,10 +32,13 @@ All local asset links are relative, so the site works under a repository subpath
 - `neural-network-assets/`: TensorFlow Playground decision-boundary images used in the slides and the slide-2 preview image used on the home page.
 - `llm-training-costs.html`: the third artifact, a one-slide infographic on LLM training stages, resources, and model costs. It has a full-screen **Present** mode and prints to a single landscape page. Adding `?capture` to the URL hides the page controls for image export.
 - `LLM-Training-Costs.pdf` and `LLM-Training-Costs.png`: the infographic exported from Chrome (13.333 × 7.5 in; 1920 × 1080).
-- `llm-training-explanation.html` and `LLM-Training-Explanation.pdf`: the explanatory document for the infographic, with full references.
+- `llm-training-explanation.html` and `LLM-Training-Explanation.pdf`: the explanatory document with the infographic included and full references. The PDF is the infographic page followed by the document pages.
 - `explainable-ai.html`: the fourth artifact, a single-page infographic on explainable AI, validation and metrics, and current lab techniques. It reflows on phones and prints to one tall page. Adding `?capture` to the URL hides the page controls for image export.
 - `Explainable-AI.pdf` and `Explainable-AI.png`: the infographic exported from headless Chrome (1200 × 3520 px page; 2400 px wide PNG).
 - `explainable-ai-assets/explainable-ai-preview.png`: the top of the infographic, used as the home page preview.
+- `model-decision-matrix.html`: the fifth artifact, a one-slide decision matrix comparing 11 pre-trained models (language/generative AI, vision, tabular) on size, accuracy, speed, and explainability. It has a full-screen **Present** mode and prints to a single landscape page. Adding `?capture` to the URL hides the page controls for image export.
+- `Model-Decision-Matrix.pdf` and `Model-Decision-Matrix.png`: the matrix exported from headless Chrome (13.333 × 7.5 in; 1920 × 1080).
+- `model-selection-assets/benchmark.py` and `benchmark-results.json`: the CPU benchmark behind the matrix and its raw output. Requires PyTorch, torchvision, Transformers, scikit-learn, XGBoost, and LightGBM; downloads about 1.3 GB of weights and data on first run. The explanatory document is kept outside the site.
 - `.nojekyll`: serves the static site without Jekyll processing.
 
 Each artifact includes Title, Introduction, Description, Objective, Process, Tools and Technologies Used, Value Proposition, Unique Value, Relevance, a usage note, and References.

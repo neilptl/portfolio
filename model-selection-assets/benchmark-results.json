@@ -1,0 +1,127 @@
+{
+  "machine": {
+    "python": "3.11.15",
+    "torch": "2.15.0+cpu",
+    "threads": 6,
+    "cpu": "AMD Ryzen 5 7600 6-Core Processor"
+  },
+  "vision": {
+    "MobileNetV3-Large": {
+      "params": 5483032,
+      "weights_mb": 22.1,
+      "input": 224,
+      "acc1_published": 75.274,
+      "gflops_published": 0.217,
+      "latency_ms_median": 8.64,
+      "latency_ms_min": 6.24,
+      "latency_ms_max": 11.36,
+      "throughput_img_s": 210.7,
+      "runs": 60
+    },
+    "EfficientNet-B0": {
+      "params": 5288548,
+      "weights_mb": 21.4,
+      "input": 224,
+      "acc1_published": 77.692,
+      "gflops_published": 0.386,
+      "latency_ms_median": 12.03,
+      "latency_ms_min": 10.24,
+      "latency_ms_max": 15.97,
+      "throughput_img_s": 110.8,
+      "runs": 60
+    },
+    "ResNet-50": {
+      "params": 25557032,
+      "weights_mb": 102.5,
+      "input": 224,
+      "acc1_published": 80.858,
+      "gflops_published": 4.089,
+      "latency_ms_median": 34.59,
+      "latency_ms_min": 31.32,
+      "latency_ms_max": 63.12,
+      "throughput_img_s": 31.6,
+      "runs": 60
+    },
+    "EfficientNet-B7": {
+      "params": 66347960,
+      "weights_mb": 267.1,
+      "input": 600,
+      "acc1_published": 84.122,
+      "gflops_published": 37.746,
+      "latency_ms_median": 387.71,
+      "latency_ms_min": 376.89,
+      "latency_ms_max": 400.3,
+      "throughput_img_s": 2.1,
+      "runs": 15
+    }
+  },
+  "nlp": {
+    "DistilBERT (SST-2)": {
+      "repo": "distilbert/distilbert-base-uncased-finetuned-sst-2-english",
+      "id2label": {
+        "0": "NEGATIVE",
+        "1": "POSITIVE"
+      },
+      "params": 66955010,
+      "weights_mb": 267.9,
+      "sst2_dev_acc": 91.06,
+      "n": 872,
+      "latency_ms_median": 11.82,
+      "latency_ms_p90": 15.15,
+      "throughput_sent_s": 130.5,
+      "mean_tokens": 25.2
+    },
+    "BERT-base (SST-2)": {
+      "repo": "textattack/bert-base-uncased-SST-2",
+      "id2label": {
+        "0": "LABEL_0",
+        "1": "LABEL_1"
+      },
+      "params": 109483778,
+      "weights_mb": 438.0,
+      "sst2_dev_acc": 92.43,
+      "n": 872,
+      "latency_ms_median": 29.62,
+      "latency_ms_p90": 36.92,
+      "throughput_sent_s": 49.4,
+      "mean_tokens": 25.2
+    }
+  },
+  "tabular": {
+    "_data": {
+      "rows": 48842,
+      "features": 14,
+      "train": 39073,
+      "test": 9769,
+      "positive_rate": 0.239
+    },
+    "Random Forest": {
+      "accuracy": 86.02,
+      "roc_auc": 0.9107,
+      "train_s_median": 0.91,
+      "model_mb": 273.54,
+      "latency_ms_single_row": 8.686,
+      "throughput_rows_s": 168009,
+      "trees": 300
+    },
+    "XGBoost": {
+      "accuracy": 87.72,
+      "roc_auc": 0.9302,
+      "train_s_median": 0.22,
+      "model_mb": 0.91,
+      "latency_ms_single_row": 0.829,
+      "throughput_rows_s": 967142,
+      "trees": 300
+    },
+    "LightGBM": {
+      "accuracy": 87.37,
+      "roc_auc": 0.9283,
+      "train_s_median": 0.19,
+      "model_mb": 1.02,
+      "latency_ms_single_row": 0.364,
+      "throughput_rows_s": 817832,
+      "trees": 300
+    }
+  },
+  "date": "2026-11-22"
+}
